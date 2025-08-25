@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CXNJXR</title>
+  <style>
+
+
+    /* --- NAV --- */
+    header {
+      border-bottom: 1px solid #ccc;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .nav-left, .nav-right {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      flex-wrap: wrap; /* 🔑 en móvil no se sale */
+    }
+    .nav-left a, .nav-right a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #000;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    /* --- Filtro desplegable --- */
+    .dropdown {
+      position: relative;
+    }
+    .dropdown-btn {
+      background: none;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 160px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      z-index: 20;
+    }
+    .dropdown-content a {
+      display: block;
+      padding: 0.6rem 0.9rem;
+      text-decoration: none;
+      font-size: 0.9rem;
+      color: #000;
+    }
+    .dropdown-content a:hover {
+      background: #f2f2f2;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* --- Breadcrumb y título --- */
+    .breadcrumb {
+      margin: 1rem auto;
+      max-width: 1200px;
+      padding: 0 1rem;
+      font-size: 0.85rem;
+      color: #777;
+    }
+    .breadcrumb span {
+      color: #d35400;
+      font-weight: bold;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* --- Grid productos --- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      padding: 0 1rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .product {
+      border: 1px solid #000000;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #fff;
+    }
+    .product img {
+      width: 100%;
+      height: auto;
+      max-height: 350px;
+      object-fit: cover;
+    }
+    .product-info {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.8rem;
+      font-size: 0.9rem;
+    }
+    .price {
+      font-weight: bold;
+    }
+    .old-price {
+      text-decoration: line-through;
+      color: #999;
+      margin-right: 6px;
+    }
+
+    /* --- Responsive ajustes --- */
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-left, .nav-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+      .product-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="nav-left">
+        <a href="#">SHOP</a>
+        <a href="#">COLLECTIONS</a>
+        <div class="dropdown">
+          <button class="dropdown-btn">FILTERS ▾</button>
+          <div class="dropdown-content">
+            <a href="#">Zapatillas</a>
+            <a href="#">Ropa</a>
+            <a href="#">Joyería</a>
+            <a href="#">Ofertas</a>
+            <a href="#">Novedades</a>
+          </div>
+        </div>
+      </div>
+      <div class="nav-right">
+        <a href="#">SEARCH</a>
+        <a href="#">CART (1)</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="breadcrumb">
+    HOME / <span>ALL</span>
+  </div>
+  <h1>SHOP ALL</h1>
+
+  <section class="grid">
+    <div class="product">
+      <img src="https://via.placeholder.com/400x350.png?text=Producto+1" alt="Producto 1">
+      <div class="product-info">
+        <div>5 PANEL CAP</div>
+        <div class="price">40 USD</div>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://via.placeholder.com/400x350.png?text=Producto+2" alt="Producto 2">
+      <div class="product-info">
+        <div>SPORT CROSSBODY</div>
+        <div class="price">60 USD</div>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://via.placeholder.com/400x350.png?text=Producto+3" alt="Producto 3">
+      <div class="product-info">
+        <div>FORMAL PANTS</div>
+        <div class="price"><span class="old-price">120</span>100 USD</div>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://via.placeholder.com/400x350.png?text=Producto+4" alt="Producto 4">
+      <div class="product-info">
+        <div>DRESS CORDUROY</div>
+        <div class="price">140 USD</div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
