@@ -1,3 +1,23 @@
+WEB/
+│
+├── IMG/
+│
+├── pages/
+│   ├── product/
+│   │   └── productpage.html
+│   │
+│   └── shop.html
+│
+├── src/
+│   └── style.css
+│
+├── index.html
+├── prueba.html
+└── README.txt
+
+
+
+
 
 Partes CLAVE que conectan con Shopify
 

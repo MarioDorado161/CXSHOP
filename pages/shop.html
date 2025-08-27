@@ -6,444 +6,10 @@
 
   <title>CXSHOP</title>
 
-
+  <link rel="stylesheet" href="/src/style.css">
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
-    :root {
-      font-family: "Space Grotesk", sans-serif;
-    }
-
-    body {
-      margin: 0;
-      overflow-x: hidden;
-    }
-
-    /* Para navegadores basados en WebKit (Chrome, Edge, Safari) */
-    ::-webkit-scrollbar {
-        width: 6px;           /* Grosor del scroll vertical */
-        height: 6px;          /* Grosor del scroll horizontal */
-    }
-
-    ::-webkit-scrollbar-track {
-        background: transparent;  /* Fondo del track */
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background-color: #000;   /* Color negro del scroll */
-        border-radius: 3px;       /* Bordes redondeados */
-        border: 1px solid transparent; /* Opcional: suaviza el borde */
-    }
-
-    /* Para Firefox */
-    * {
-        scrollbar-width: thin;        /* Scroll delgado */
-        scrollbar-color: #000 transparent; /* Color del scroll y del track */
-    }
-
-     /* Barra superior negra */
-/* 🔥 Barra negra arriba */
-/* Top bar negra */
-/* 🔥 Barra negra arriba */
-.top-bar {
-  background: black;
-  color: white;
-  font-size: 12px;
-  padding: 2px 0;
-  overflow: hidden;
-  white-space: nowrap;
-  position: sticky;
-  top: 0;              
-  z-index: 300;        /* Por encima de todo */
-}
-
-.top-bar .scroll {
-  display: inline-block;
-  white-space: nowrap;
-  animation: scroll-left 15s linear infinite;
-}
-
-@keyframes scroll-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* Header principal */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 40px;
-}
-header h1 {
-  font-size: 44px;
-  margin: 0;
-  font-weight: bolder;
-  margin-left: -15px;
-}
-.Reloj { font-size: 20px; }
-
-/* 🔥 Barra verde sticky */
-.green-bar {
-  background: #A8FF60;
-  padding: 8px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  position: sticky;
-  top: var(--topbar-h, 24px);   /* altura dinámica */
-  z-index: 250;
-}
-
-/* Menú */
-.menu {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  position: relative;
-}
-
-/* Desktop (por defecto) */
-.menu-links {
-  display: flex;
-  gap: 30px;
-  width: 100%;
-  justify-content: center;
-}
-
-/* Links */
-.menu a {
-  text-decoration: none;
-  color: black;
-  font-weight: 500;
-  font-size: 20px;
-  position: relative;
-}
-.menu a::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: black;
-  transition: width 0.3s ease;
-}
-.menu a:hover::after { width: 100%; }
-
-/* Submenú */
-.submenu-container { position: static; }
-
-.submenu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;          
-  width: 100vw;      
-  background: white;
-  border-top: 3px solid #b8ff64;
-  display: grid;
-  grid-template-columns: 3fr 2fr;
-  z-index: 100;
-  margin-top: 10px;
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transform: translateY(-20px);
-  transition: all 0.4s ease;
-  border: 1px solid black;
-}
-
-.submenu-columns {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0px;
-  padding: 0px 20px;
-}
-
-.submenu-column h4 {
-  margin-bottom: 10px;
-  font-size: 20px;
-  text-transform: uppercase;
-}
-.submenu-column a {
-  display: block;
-  text-decoration: none;
-  color: black;
-  margin: 5px 0;
-  text-transform: uppercase;
-  font-size: 18px;
-  font-weight: 300;
-}
-
-.submenu-images {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  align-items: flex-start;
-  padding: 30px 50px;
-}
-.submenu-images img {
-  width: 180px;
-  height: 220px;
-  border-radius: 6px;
-  object-fit: cover;
-}
-
-/* Hover para mostrar submenu */
-.submenu-container:hover .submenu {
-  max-height: 500px;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Parte derecha */
-.right-info {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-weight: lighter;
-  font-size: 20px;
-}
-.cart sup { font-size: 12px; }
-
-/* Responsive */
-.hamburger {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-}
-
-/* ======= MOBILE ======= */
-@media (max-width: 768px) {
-  /* Overlay de navegación */
-  .menu-links {
-    display: none;
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #fff;
-    z-index: 1000;
-    overflow-y: auto;
-
-    /* 🔥 margen arriba para que no se corte la primera sección */
-    padding: 690px 20px 40px;
-
-    flex-direction: column;
-    gap: 25px;
-    align-items: center;
-    box-sizing: border-box;
-
-  }
-
-  .menu-links.active { 
-    display: flex; 
-  }
-
-  /* Botón cerrar mejorado (solo en móvil) */
-  .menu-close {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 20px;
-    right: 10px;
-    font-size: 26px;
-    background: none;
-    border: none;
-    cursor: pointer;
-
-    /* 🔥 mejora área táctil */
-    padding: 10px;
-    width: 44px;
-    height: 44px;
-
-    z-index: 1101; /* por encima del overlay */
-  }
-
-  /* Cada bloque de menú ocupa ancho completo */
-  .submenu-container {
-    width: 100%;
-    max-width: 640px;
-  }
-
-  /* Submenús en columna (ya no flotan) */
-  .submenu {
-    position: static !important;
-    width: 100% !important;
-    border: none !important;
-    margin: 0 !important;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    opacity: 1 !important;
-    transform: none !important;
-    max-height: none !important;
-    overflow: visible !important;
-  }
-
-  .submenu-columns {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  .submenu-column {
-    border-bottom: 1px solid #000;
-
-  }
-
-  .submenu-column h4 {
-    font-size: 16px;
-    margin-bottom: 6px;
-  }
-
-  .submenu-column a {
-    font-size: 20px;
-    margin: 4px 0;
-    display: block;
-    text-align: center;
-             border-top: 1px solid #000;
-  }
-
-  /* Quitamos imágenes en móvil */
-  .submenu-images { 
-    display: none !important; 
-  }
-
-  /* Hamburguesa visible */
-  .hamburger { 
-    display: block; 
-  }
-}
-
-/* ======= DESKTOP ======= */
-@media (min-width: 769px) {
-  .menu-close {
-    display: none !important; /* Oculto en escritorio */
-  }
-}
-
-/* === Overlay oscuro === */
-.cart-overlay {
-  display: none;                  /* 🔥 oculto por defecto */
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  z-index: 900;
-  transition: opacity 0.3s ease;
-  opacity: 0;
-}
-
-.cart-overlay.active {
-  display: block;
-  opacity: 1;
-}
-
-/* === Panel carrito === */
-.cart-panel {
-  position: fixed;
-  top: 0;
-  right: -400px;                  /* 🔥 fuera de pantalla */
-  width: 400px;
-  max-width: 90vw;
-  height: 95vh;
-  background: #fff;
-  box-shadow: -2px 0 8px rgba(0,0,0,0.2);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  transition: right 0.3s ease;
-  padding: 20px;
-  visibility: hidden;             /* 🔥 invisible por defecto */
-}
-
-.cart-panel.open {
-  right: 0;
-  visibility: visible;            /* solo visible cuando se abre */
-}
-
-.cart-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 20px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
-}
-
-.cart-header button {
-  font-size: 22px;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-.cart-items {
-  flex: 1;
-  overflow-y: auto;
-  margin-top: 20px;
-}
-
-.cart-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid #eee;
-  padding: 10px 0;
-}
-
-.cart-item img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-}
-
-.cart-item p {
-  margin: 0;
-  font-size: 14px;
-}
-
-.cart-footer {
-  border-top: 1px solid #ddd;
-  padding-top: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.cart-footer button {
-  background: black;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
+   
 
 
 
@@ -708,131 +274,6 @@ header h1 {
 
 
 
-/* --- FOOTER --- */
-.footer {
-  position: relative;
-  background: #000;
-  color: #fff;
-  margin-top: 3rem;
-  overflow: hidden;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.footer::before {
-  content: "CXSHOP";
-  position: absolute;
-  top: 20px;
-  left: 5%;
-  font-size: 16rem; /* tamaño enorme */
-  font-weight: 900;
-  color: rgba(255, 255, 255, 0.075); /* efecto agua / watermark */
-  z-index: 0; /* detrás de todo */
-  pointer-events: none; /* no bloquea clics */
-  white-space: nowrap;
-    letter-spacing: -27px;
-}
-
-.footer-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  padding: 3rem 5%;
-  position: relative;
-  z-index: 1; /* por encima del fondo */
-}
-
-.footer-block h2,
-.footer-block h3 {
-  font-weight: 00;
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-}
-
-.footer-block h2 {
-  font-size: 4.4rem;
-  color: #A8FF60;
-  letter-spacing: -7px;
-}
-
-.footer-block ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-block ul li {
-  margin: 0.5rem 0;
-}
-
-.footer-block ul li a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 0.95rem;
-  transition: color 0.2s ease;
-}
-
-.footer-block ul li a:hover {
-  color: #adff2f;
-}
-
-.socials {
-  display: flex;
-  gap: 1rem;
-}
-
-.socials a {
-  text-decoration: none;
-  font-weight: 700;
-  color: #fff;
-  transition: color 0.2s ease;
-}
-
-.socials a:hover {
-  color: #adff2f;
-}
-
-.footer-bottom {
-  border-top: 1px solid #333;
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.8rem;
-  color: #aaa;
-  position: relative;
-  z-index: 1;
-}
-a{
-  text-decoration: none;
-  color: #000000;
-}
-
-/* Responsive */
-@media (max-width: 800px) {
-  .footer-container {
-    grid-template-columns: 1fr 1fr;
-    text-align: center;
-  }
-
-  .socials {
-    justify-content: center;
-  }
-
-  .footer::before {
-    font-size: 5rem;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
-
-@media (max-width: 500px) {
-  .footer-container {
-    grid-template-columns: 1fr;
-  }
-
-  .footer::before {
-    font-size: 3.5rem;
-  }
-}
 </style>
 </head>
 
@@ -858,92 +299,93 @@ a{
 
     <!-- Menú links -->
     <div class="menu-links" id="menu-links">
-     <button class="menu-close" id="menu-close" aria-label="Cerrar">✕</button>
-      <!-- TIENDA -->
-      <div class="submenu-container" >
-        <a href="/pages/shop.html" class="link-principal">TIENDA</a> 
-        <div class="submenu" style="margin-left: -18px;">
-          <div class="submenu-columns">
-            <div class="submenu-column">
-              <h4>SHOP ALL</h4>
-              <a href="#">Nuevo</a>
-              <a href="#">Rebajas</a>
-            </div>
-            <div class="submenu-column">
-              <h4>Hombre</h4>
-              <a href="#">Pantalones</a>
-              <a href="#">Upperwear</a>
-              <a href="#">Conjuntos</a>
-              <a href="#">Zapatillas</a>
-            </div>
-            <div class="submenu-column">
-              <h4>Mujer</h4>
-              <a href="#">Pantalones</a>
-              <a href="#">Upperwear</a>
-              <a href="#">Conjuntos</a>
-              <a href="#">Zapatillas</a>
-            </div>
-            <div class="submenu-column">
-              <h4>Accesorios</h4>
-              <a href="#">Gorros</a>
-              <a href="#">Bolsos</a>
-              <a href="#">Relojes</a>
-              <a href="#">Joyería</a>
-            </div>
-          </div>
-          <div class="submenu-images">
-            <a href="#"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/6a6c5ca3-050a-4dd9-9de1-3f6a301f26a6/M+NL+SOLO+SWSH+BB+OH+PANT.png" alt="Mens"></a>
-            <a href="#"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/ed1011b1-54a5-4f07-961c-1c1ec414d3dc/W+NK+TEMPO+DF+MR+3%22+SHORT.png" alt="Womens"></a>
-            <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/ae4a9f78-78be-459a-be67-cf0ea3efe1d0/image.jpg" alt="Sneakers"></a>
-          </div>
+  <button class="menu-close" id="menu-close" aria-label="Cerrar">✕</button>
+
+  <!-- TIENDA -->
+  <div class="submenu-container">
+    <a href="/pages/shop.html" class="link-principal">TIENDA</a>
+    <div class="submenu" style="margin-left: -18px;">
+      <div class="submenu-columns">
+        <div class="submenu-column">
+          <h4>SHOP ALL</h4>
+          <a href="#">Nuevo</a>
+          <a href="#">Rebajas</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Hombre</h4>
+          <a href="#">Pantalones</a>
+          <a href="#">Upperwear</a>
+          <a href="#">Conjuntos</a>
+          <a href="#">Zapatillas</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Mujer</h4>
+          <a href="#">Pantalones</a>
+          <a href="#">Upperwear</a>
+          <a href="#">Conjuntos</a>
+          <a href="#">Zapatillas</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Accesorios</h4>
+          <a href="#">Gorros</a>
+          <a href="#">Bolsos</a>
+          <a href="#">Relojes</a>
+          <a href="#">Joyería</a>
         </div>
       </div>
-
-      <!-- COLECCIONES -->
-      <div class="submenu-container">
-        <a href="#" class="link-principal">COLECCIONES</a>
-        <div class="submenu">
-          <div class="submenu-columns">
-            <div class="submenu-column">
-              <h4>Ediciones Limitadas</h4>
-              <a href="#">Premium</a>
-              <a href="#">Collabs</a>
-            </div>
-            <div class="submenu-column">
-              <h4>Clásicos</h4>
-              <a href="#">Retro</a>
-              <a href="#">Heritage</a>
-            </div>
-          </div>
-          <div class="submenu-images">
-            <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/1.jpg" alt="Limited"></a>
-            <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/2.jpg" alt="Classic"></a>
-          </div>
-        </div>
+      <div class="submenu-images">
+        <a href="#"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/6a6c5ca3-050a-4dd9-9de1-3f6a301f26a6/M+NL+SOLO+SWSH+BB+OH+PANT.png" alt="Mens"></a>
+        <a href="#"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/ed1011b1-54a5-4f07-961c-1c1ec414d3dc/W+NK+TEMPO+DF+MR+3%22+SHORT.png" alt="Womens"></a>
+        <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/ae4a9f78-78be-459a-be67-cf0ea3efe1d0/image.jpg" alt="Sneakers"></a>
       </div>
-
-      <!-- MAS -->
-      <div class="submenu-container">
-        <a href="#" class="link-principal">MÁS</a>
-        <div class="submenu">
-          <div class="submenu-columns">
-            <div class="submenu-column">
-              <h4>Información</h4>
-              <a href="#">Sobre nosotros</a>
-              <a href="#">Sostenibilidad</a>
-              <a href="#">Blog</a>
-            </div>
-            <div class="submenu-column">
-              <h4>Soporte</h4>
-              <a href="#">Contacto</a>
-              <a href="#">FAQ</a>
-              <a href="#">Términos</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
+  </div>
+
+  <!-- COLECCIONES -->
+  <div class="submenu-container">
+    <a href="#" class="link-principal">COLECCIONES</a>
+    <div class="submenu">
+      <div class="submenu-columns">
+        <div class="submenu-column">
+          <h4>Ediciones Limitadas</h4>
+          <a href="#">Premium</a>
+          <a href="#">Collabs</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Clásicos</h4>
+          <a href="#">Retro</a>
+          <a href="#">Heritage</a>
+        </div>
+      </div>
+      <div class="submenu-images">
+        <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/1.jpg" alt="Limited"></a>
+        <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/2.jpg" alt="Classic"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAS -->
+  <div class="submenu-container">
+    <a href="#" class="link-principal">MÁS</a>
+    <div class="submenu">
+      <div class="submenu-columns">
+        <div class="submenu-column">
+          <h4>Información</h4>
+          <a href="#">Sobre nosotros</a>
+          <a href="#">Sostenibilidad</a>
+          <a href="#">Blog</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Soporte</h4>
+          <a href="#">Contacto</a>
+          <a href="#">FAQ</a>
+          <a href="#">Términos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
   </nav>
 
   <!-- parte derecha -->
@@ -990,7 +432,7 @@ a{
 
       <div class="dropdown">
         <button class="dropdown-btn">CATEGORIA ▾</button>
-        <div class="dropdown-content">
+        <div class="dropdown-content" style="text-transform: uppercase;">
           <a href="#">Zapatillas</a>
           <a href="#">Ropa</a>
           <a href="#">Joyería</a>
@@ -1021,7 +463,7 @@ a{
 
 
   <section class="grid">
-    <div class="product">                                                   <a href="../pages/product/productpage.html">
+    <div class="product">                                                   <a href="../pages/product/productpage.html" style="text-decoration: none; color: #000000;">
       <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/f3015dae-07a5-4c87-9785-5014018c050c/NIKE+AIR+MAX+PLUS.png" alt="Producto 1">
       <div class="product-info">
         <div>5 PANEL CAP</div>
@@ -1029,20 +471,20 @@ a{
       </div>                                                                 </a>
     </div>
 
-    <div class="product">
+    <div class="product">                                                     <a href="../pages/product/productpage.html" style="text-decoration: none; color: #000000;">
       <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/xa3j5pmlqu9lz6y1xbsb/NIKE+SHOX+TL.png" alt="Producto 2">
       <div class="product-info">
         <div>SPORT CROSSBODY</div>
         <div class="price">60 USD</div>
-      </div>
-    </div>
+      </div>                                                                   </a>
+    </div> 
 
-    <div class="product">
+    <div class="product"> <a href="../pages/product/productpage.html" style="text-decoration: none; color: #000000;">
       <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/34627b2f-87d6-4cd8-aae4-dc1e452679c6/AIR+MAX+90+LTR.png" alt="Producto 3">
       <div class="product-info">
         <div>FORMAL PANTS</div>
         <div class="price"><span class="old-price">120</span>100 USD</div>
-      </div>
+      </div> </a>
     </div>
 
     <div class="product">
@@ -1142,7 +584,7 @@ a{
     <div class="footer-block">
       <h3>SÍGUENOS</h3>
       <div class="socials">
-        <a href="#">IG</a>
+        <a href="#" class="ig-link">IG</a>
         <a href="#">TW</a>
         <a href="#">YT</a>
         <a href="#">TT</a>
@@ -1411,6 +853,7 @@ cartOverlay.addEventListener('click', closeCart);
 
 </body>
 </html>
+
 
 
 
