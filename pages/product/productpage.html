@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>CXSHOP</title>
+  <link rel="stylesheet" href="/src/style.css">
 
-<link rel="stylesheet" href="../../src/style.css">
-
-  <base href="https://mariodorado161.github.io/CXSHOP/">
   <style>
   
 
@@ -94,7 +93,6 @@
 
     .back {
       font-size: 14px;
-      color: #333;
       margin-bottom: 20px;
       cursor: pointer;
     }
@@ -218,9 +216,18 @@
     }
 
 
+.size-option{
+  margin-top: -15px;
+  margin-bottom: 15px;
+}
 
+.size-option:hover{
+  background-color: #ff6600;
+}
 
-
+.atras-btn{
+  color: #e25500 !important;
+}
 
 
 
@@ -576,12 +583,25 @@
     <!-- Detalles derecha -->
     <div class="product-details">
       <div class="back">
-            <a href="javascript:window.history.back();" style="text-decoration: none; color: #000000;">
+            <a href="javascript:window.history.back();" style="text-decoration: none; color: #000000;" class="atras-btn">
                 ← BACK
             </a>
       </div>
       <div class="title">SPORT CROSSBODY</div>
       <div class="price">60 USD</div>
+
+
+
+      <!-- Debajo del precio, antes del botón -->
+    <div class="size-selector" style="display:grid; grid-template-columns: repeat(5, 50px); gap:10px; margin:15px 0;">
+      <div class="size-option" style="border:1px solid #000; text-align:center; padding:10px; cursor:pointer;">XS</div>
+      <div class="size-option" style="border:1px solid #000; text-align:center; padding:10px; cursor:pointer;">S</div>
+      <div class="size-option" style="border:1px solid #000; text-align:center; padding:10px; cursor:pointer;">M</div>
+      <div class="size-option" style="border:1px solid #000; text-align:center; padding:10px; cursor:pointer;">L</div>
+      <div class="size-option" style="border:1px solid #000; text-align:center; padding:10px; cursor:pointer;">XL</div>
+    </div>
+
+
 
       <button class="add-to-cart">ADD TO CART</button>
 
@@ -918,8 +938,8 @@ document.addEventListener("DOMContentLoaded", () => {
 <script src="https://cdn.jsdelivr.net/npm/shopify-buy@2.20.1/index.umd.min.js"></script>
 
 
-<script>
-  // Shopify config
+<!-- <script>
+
   const client = ShopifyBuy.buildClient({
     domain: 'TU_TIENDA.myshopify.com',
     storefrontAccessToken: 'TU_ACCESS_TOKEN'
@@ -1016,12 +1036,217 @@ function closeCart() {
 closeCartBtn.addEventListener('click', closeCart);
 cartOverlay.addEventListener('click', closeCart);
 
+</script> -->
+
+
+<script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const addToCartBtn = document.querySelector('.add-to-cart');
+const cartBtn = document.querySelector('.cart');
+const cartPanel = document.getElementById('cart-panel');
+const cartOverlay = document.getElementById('cart-overlay');
+const closeCartBtn = document.getElementById('close-cart');
+const cartItemsContainer = document.getElementById('cart-items');
+const cartTotal = document.getElementById('cart-total');
+const cartCount = document.querySelector('.cart sup');
+const sizeOptions = document.querySelectorAll('.size-option');
+
+let total = 0;
+let itemsInCart = 0;
+let selectedSize = null;
+
+// --- Funciones de carrito ---
+function openCart() {
+  cartPanel.classList.add('open');
+  cartOverlay.classList.add('active');
+}
+
+function closeCart() {
+  cartPanel.classList.remove('open');
+  cartOverlay.classList.remove('active');
+}
+
+closeCartBtn.addEventListener('click', closeCart);
+cartOverlay.addEventListener('click', closeCart);
+cartBtn.addEventListener('click', openCart);
+
+// --- Selección de talla ---
+sizeOptions.forEach(option => {
+  option.addEventListener('click', () => {
+    sizeOptions.forEach(o => {
+      o.style.backgroundColor = '';
+      o.style.color = '';
+    });
+    option.style.backgroundColor = '#000';
+    option.style.color = '#fff';
+    selectedSize = option.textContent;
+  });
+});
+
+// --- Guardar y cargar carrito en localStorage ---
+function saveCart() {
+  localStorage.setItem('myCart', cartItemsContainer.innerHTML);
+  localStorage.setItem('cartTotal', total);
+  localStorage.setItem('cartCount', itemsInCart);
+}
+
+function loadCart() {
+  const savedItems = localStorage.getItem('myCart');
+  const savedTotal = localStorage.getItem('cartTotal');
+  const savedCount = localStorage.getItem('cartCount');
+
+  if (savedItems) {
+    cartItemsContainer.innerHTML = savedItems;
+    total = parseFloat(savedTotal);
+    itemsInCart = parseInt(savedCount);
+    updateCart();
+
+    // Reasignar eventos a botones + y -
+    cartItemsContainer.querySelectorAll('.cart-item').forEach(itemDiv => {
+      const productPrice = parseFloat(itemDiv.querySelector('p:nth-child(3)').textContent.replace(/[^0-9.]/g, ''));
+      const qtySpan = itemDiv.querySelector('.item-qty');
+
+      const addOneBtn = itemDiv.querySelector('.add-one');
+      const removeOneBtn = itemDiv.querySelector('.remove-one');
+
+      addOneBtn.addEventListener('click', () => {
+        let qty = parseInt(qtySpan.textContent);
+        qty++;
+        qtySpan.textContent = qty;
+        total += productPrice;
+        itemsInCart++;
+        updateCart();
+        saveCart();
+      });
+
+      removeOneBtn.addEventListener('click', () => {
+        let qty = parseInt(qtySpan.textContent);
+        total -= productPrice * qty;
+        itemsInCart -= qty;
+        cartItemsContainer.removeChild(itemDiv);
+        updateCart();
+        saveCart();
+      });
+    });
+  }
+}
+
+// --- Función para actualizar carrito ---
+function updateCart() {
+  cartTotal.textContent = total + " USD";
+  cartCount.textContent = itemsInCart;
+  saveCart();
+}
+
+// --- Añadir producto al carrito ---
+addToCartBtn.addEventListener('click', () => {
+  if (!selectedSize) {
+    alert('Por favor, selecciona una talla antes de añadir al carrito.');
+    return;
+  }
+
+  const productName = document.querySelector('.title').textContent;
+  const productPriceText = document.querySelector('.price').textContent;
+  const productPrice = parseFloat(productPriceText.replace(/[^0-9.]/g, ''));
+  const productImage = document.querySelector('.main-image').src;
+
+  const itemDiv = document.createElement('div');
+  itemDiv.classList.add('cart-item');
+  itemDiv.style.display = 'flex';
+  itemDiv.style.justifyContent = 'space-between';
+  itemDiv.style.alignItems = 'center';
+  itemDiv.style.marginBottom = '10px';
+
+  itemDiv.innerHTML = `
+    <div style="display:flex; align-items:center;">
+      <img src="${productImage}" width="50" style="margin-right:10px;">
+      <div>
+        <p style="margin:0;">${productName}</p>
+        <p style="margin:0;">Talla: ${selectedSize}</p>
+        <p style="margin:0;">Cantidad: <span class="item-qty">1</span> x ${productPrice} USD</p>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:5px;">
+      <button class="add-one" style="cursor:pointer; width:30px; height:30px; border:none; border-radius:50%; background-color:#000; color:#fff; font-size:18px; display:flex; justify-content:center; align-items:center;">+</button>
+      <button class="remove-one" style="cursor:pointer; width:30px; height:30px; border:none; border-radius:50%; background-color:#000; color:#fff; font-size:18px; display:flex; justify-content:center; align-items:center;">-</button>
+    </div>
+  `;
+
+  cartItemsContainer.appendChild(itemDiv);
+
+  total += productPrice;
+  itemsInCart++;
+  updateCart();
+  openCart();
+
+  const qtySpan = itemDiv.querySelector('.item-qty');
+  const addOneBtn = itemDiv.querySelector('.add-one');
+  const removeOneBtn = itemDiv.querySelector('.remove-one');
+
+  addOneBtn.addEventListener('click', () => {
+    let qty = parseInt(qtySpan.textContent);
+    qty++;
+    qtySpan.textContent = qty;
+    total += productPrice;
+    itemsInCart++;
+    updateCart();
+  });
+
+  removeOneBtn.addEventListener('click', () => {
+    let qty = parseInt(qtySpan.textContent);
+    total -= productPrice * qty;
+    itemsInCart -= qty;
+    cartItemsContainer.removeChild(itemDiv);
+    updateCart();
+  });
+
+  saveCart();
+});
+
+// --- Cargar carrito al iniciar ---
+loadCart();
+
+
+
+
+
+
+
+
+
+
+  
 </script>
+
+
+
+
 
 
 </body>
 </html>
-
 
 
 

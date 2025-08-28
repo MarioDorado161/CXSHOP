@@ -454,7 +454,7 @@ header h1 {
   z-index: 0; /* detrás de todo */
   pointer-events: none; /* no bloquea clics */
   white-space: nowrap;
-    letter-spacing: -27px;
+    letter-spacing: -23px;
 }
 
 .footer-container {
