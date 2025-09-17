@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CXSHOP</title>
+
+  <link rel="stylesheet" href="../src/style.css">
+
+
+  <style>
+   
+
+
+
+    /*SEPARADOR CON TEXTOS*/
+
+
+
+
+.separator {
+          display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+}
+
+.separator h1 {
+          font-size: 44px;
+      margin: 0;
+      font-weight: bolder;
+      margin-left: -15px;
+}
+.texto-separador {
+          font-size: 20px;
+      margin: 0;
+      font-weight: light;
+      margin-left: -15px;
+      text-decoration: none;
+      color: black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- FILTROS (ahora ocupa todo el ancho) --- */
+.filters {
+  width: 100%; /* ocupa todo el ancho de la pantalla */
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: .8rem; /* padding relativo */
+  box-sizing: border-box; /* para que el padding no aumente el ancho */
+  flex-wrap: wrap; /* para que no se desborde en móvil */
+   font-family: "Space Grotesk";
+}
+.filters .nav-left, .filters .nav-right {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.filters .nav-left a, .filters .nav-right a {
+  text-decoration: none;
+  font-weight: lighter;
+  color: #000;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+/* --- Filtro desplegable --- */
+.dropdown {
+  position: relative; /* cada dropdown es el contexto */
+}
+.dropdown-btn {
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;   /* flota sobre el layout */
+  top: 100%;            /* justo debajo del botón */
+  left: 0;
+  min-width: 160px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 999;
+  padding: 20px;
+}
+.dropdown-content a {
+  display: block;
+  padding: 0.6rem 0.9rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: #000;
+}
+.dropdown-content a:hover {
+  background: #f2f2f2;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.titulo-seccion h1 {
+  text-align: center;
+  width: 100%; /* por si acaso */
+}
+
+
+/* --- Breadcrumb y título --- */
+.breadcrumb {
+  width: 100%;
+  padding: 0.8rem ;
+  font-size: 0.85rem;
+  color: #777;
+  box-sizing: border-box;
+}
+.breadcrumb span {
+  color: #d35400;
+  font-weight: bold;
+}
+.breadcrumb h1 {
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 1rem 0 1.5rem;
+  box-sizing: border-box;
+}
+
+/* --- Grid productos --- */
+.grid {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  padding: 0 2%;
+  box-sizing: border-box;
+  
+  /* Responsive: por defecto 1 columna */
+  grid-template-columns: repeat(1, 1fr);
+}
+
+/* 2 columnas en pantallas medianas */
+@media (min-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 4 columnas en pantallas grandes */
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.product {
+  border: 1px solid #000000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #fff;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+  max-height: 350px;
+  object-fit: cover;
+}
+
+.product-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+  margin-right: 6px;
+}
+
+/* --- Responsive ajustes generales --- */
+@media (max-width: 600px) {
+  .filters {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem; /* espacio entre filas */
+  }
+  .filters .nav-left, .filters .nav-right {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+  .filters .nav-left {
+    flex-wrap: wrap;
+  }
+  h1 {
+    font-size: 1.3rem;
+  }
+  .product-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  /* --- Dropdown móvil --- */
+  .dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: auto;
+    width: max-content;
+    min-width: 160px;
+    max-width: 90vw;
+    overflow-x: auto; /* scroll si es demasiado ancho */
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+    background: #fff;
+    z-index: 999;
+    padding: 15px;
+    display: none;
+  }
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+}
+
+
+
+
+
+
+</style>
+</head>
+
+<body>
+
+<div class="top-bar">
+    <div class="scroll">
+        - NO SE ACEPTAN DEVOLUCIONES - &nbsp; - ENVIOS GRATIS A TODA ESPAÑA SUPERANDO LOS 50€ -
+        - NO SE ACEPTAN DEVOLUCIONES - &nbsp; - ENVIOS GRATIS A TODA ESPAÑA SUPERANDO LOS 50€ -
+    </div>
+</div>
+    <!-- Header principal -->
+<header>
+        <a href="/index.html" style="text-decoration: none; color: #000000;">
+        <h1 style="letter-spacing: -2px;">CXSHOP</h1></a>
+        <div>PARIS, FR<br> <div class="Reloj">17:24:00</div></div>
+</header>
+    <!-- Barra verde con menú -->
+<div class="green-bar">
+  <nav class="menu">
+    <!-- Botón hamburguesa -->
+    <div class="hamburger" id="hamburger">&#9776;</div>
+
+    <!-- Menú links -->
+    <div class="menu-links" id="menu-links">
+     <button class="menu-close" id="menu-close" aria-label="Cerrar">✕</button>
+      <!-- TIENDA -->
+      <div class="submenu-container" >
+        <a href="/pages/shop.html" class="link-principal">TIENDA</a> 
+        <div class="submenu" style="margin-left: -18px;">
+          <div class="submenu-columns">
+            <div class="submenu-column">
+              <h4>SHOP ALL</h4>
+              <a href="#">Nuevo</a>
+              <a href="#">Rebajas</a>
+            </div>
+            <div class="submenu-column">
+              <h4>Hombre</h4>
+              <a href="#">Pantalones</a>
+              <a href="#">Upperwear</a>
+              <a href="#">Conjuntos</a>
+              <a href="#">Zapatillas</a>
+            </div>
+            <div class="submenu-column">
+              <h4>Mujer</h4>
+              <a href="#">Pantalones</a>
+              <a href="#">Upperwear</a>
+              <a href="#">Conjuntos</a>
+              <a href="#">Zapatillas</a>
+            </div>
+            <div class="submenu-column">
+              <h4>Accesorios</h4>
+              <a href="#">Gorros</a>
+              <a href="#">Bolsos</a>
+              <a href="#">Relojes</a>
+              <a href="#">Joyería</a>
+            </div>
+          </div>
+          <div class="submenu-images">
+            <a href="#"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/6a6c5ca3-050a-4dd9-9de1-3f6a301f26a6/M+NL+SOLO+SWSH+BB+OH+PANT.png" alt="Mens"></a>
+            <a href="#"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/ed1011b1-54a5-4f07-961c-1c1ec414d3dc/W+NK+TEMPO+DF+MR+3%22+SHORT.png" alt="Womens"></a>
+            <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/ae4a9f78-78be-459a-be67-cf0ea3efe1d0/image.jpg" alt="Sneakers"></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLECCIONES -->
+      <div class="submenu-container">
+        <a href="#" class="link-principal">COLECCIONES</a>
+        <div class="submenu">
+          <div class="submenu-columns">
+            <div class="submenu-column">
+              <h4>Ediciones Limitadas</h4>
+              <a href="#">Premium</a>
+              <a href="#">Collabs</a>
+            </div>
+            <div class="submenu-column">
+              <h4>Clásicos</h4>
+              <a href="#">Retro</a>
+              <a href="#">Heritage</a>
+            </div>
+          </div>
+          <div class="submenu-images">
+            <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/1.jpg" alt="Limited"></a>
+            <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/2.jpg" alt="Classic"></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAS -->
+      <div class="submenu-container">
+        <a href="#" class="link-principal">MÁS</a>
+        <div class="submenu">
+          <div class="submenu-columns">
+            <div class="submenu-column">
+              <h4>Información</h4>
+              <a href="#">Sobre nosotros</a>
+              <a href="#">Sostenibilidad</a>
+              <a href="#">Blog</a>
+            </div>
+            <div class="submenu-column">
+              <h4>Soporte</h4>
+              <a href="#">Contacto</a>
+              <a href="#">FAQ</a>
+              <a href="#">Términos</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- parte derecha -->
+  <div class="right-info">
+    <div>BUSCAR</div>
+    <div class="cart" style="cursor: pointer;">CART<sup style="color: #e25500;">0</sup></div>
+  </div>
+</div>
+
+
+<!-- Carrito lateral -->
+<div id="cart-panel" class="cart-panel">
+  <div class="cart-header">
+    <h2>CARRITO</h2>
+    <button id="close-cart">✕</button>
+  </div>
+  <div id="cart-items" class="cart-items">
+    <p>Tu carrito está vacío</p>
+  </div>
+  <div class="cart-footer">
+    <span>Total: <strong id="cart-total">0 €</strong></span>
+    <button id="checkout-btn">Finalizar compra</button>
+  </div>
+</div>
+
+<!-- Overlay oscuro -->
+<div id="cart-overlay" class="cart-overlay"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <div class="filters">
+    <div class="nav-left">
+
+      <div class="dropdown">
+        <button class="dropdown-btn">CATEGORIA ▾</button>
+        <div class="dropdown-content" style="text-transform: uppercase;">
+          <a href="#">Zapatillas</a>
+          <a href="#">Ropa</a>
+          <a href="#">Joyería</a>
+          <a href="#">Ofertas</a>
+          <a href="#">Novedades</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropdown-btn">MARCA ▾</button>
+        <div class="dropdown-content">
+          <a href="#">NIKE</a>
+          <a href="#">ADIDAS</a>
+          <a href="#">JORDAN</a>
+          <a href="#">NEW BALANCE</a>
+          <a href="#">VANS</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  
+
+  <div class="breadcrumb">
+    HOME / <span>ALL</span>
+  </div>
+  <div class="titulo-seccion">
+    <h1>SHOP ALL</h1>
+  </div>
+
+<!-- Seccion donde se rellenan los productos -->
+  <section class="grid" id="product-grid"> 
+    <div class="product">                                                   <a href="../pages/product/productpage.html" style="text-decoration: none; color: #000000;">
+      <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/f3015dae-07a5-4c87-9785-5014018c050c/NIKE+AIR+MAX+PLUS.png" alt="Producto 1">
+      <div class="product-info">
+        <div>5 PANEL CAP</div>
+        <div class="price">40 USD</div>
+      </div>                                                                 </a>
+    </div>
+
+    <div class="product">                                                     <a href="../pages/product/productpage.html" style="text-decoration: none; color: #000000;">
+      <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/xa3j5pmlqu9lz6y1xbsb/NIKE+SHOX+TL.png" alt="Producto 2">
+      <div class="product-info">
+        <div>SPORT CROSSBODY</div>
+        <div class="price">60 USD</div>
+      </div>                                                                   </a>
+    </div> 
+
+    <div class="product"> <a href="../pages/product/productpage.html" style="text-decoration: none; color: #000000;">
+      <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/34627b2f-87d6-4cd8-aae4-dc1e452679c6/AIR+MAX+90+LTR.png" alt="Producto 3">
+      <div class="product-info">
+        <div>FORMAL PANTS</div>
+        <div class="price"><span class="old-price">120</span>100 USD</div>
+      </div> </a>
+    </div>
+
+    <div class="product">
+      <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/92145985-79f6-46b0-bcf9-69482c9cfb59/NIKE+V5+RNR.png" alt="Producto 4">
+      <div class="product-info">
+        <div>DRESS CORDUROY</div>
+        <div class="price">140 USD</div>
+      </div>
+    </div>
+
+        <div class="product">
+      <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/48125f45-3427-4c71-a66a-5260f2d68b87/GIANNIS+FREAK+7+PRM.png" alt="Producto 1">
+      <div class="product-info">
+        <div>5 PANEL CAP</div>
+        <div class="price">40 USD</div>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/d3bbbc21-03a4-46c6-adc1-3066a1ea7e96/NIKE+CALM+SLIDE.png" alt="Producto 2">
+      <div class="product-info">
+        <div>SPORT CROSSBODY</div>
+        <div class="price">60 USD</div>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/415d9fcd-63ee-4cfc-80db-35e0a6c8b004/NIKE+AIR+FORCE+1+%2707.png" alt="Producto 3">
+      <div class="product-info">
+        <div>FORMAL PANTS</div>
+        <div class="price"><span class="old-price">120</span>100 USD</div>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/eefe97c3-1b38-4e84-b85b-5fd2fe52751c/AIR+JORDAN+5+RETRO+OG.png" alt="Producto 4">
+      <div class="product-info">
+        <div>DRESS CORDUROY</div>
+        <div class="price">140 USD</div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="separator" style="border-bottom: 1px solid black;">
+  <p class="texto-separador" id="icono-separador">∎ LOS MAS VENDIDOS</p>
+  <a href="" class="texto-separador">COLECCIONES ↵ </a>
+</div>
+
+
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Bloque 1: Logo / Marca -->
+    <div class="footer-block">
+      <h2>CXSHOP</h2>
+      <p>Streetwear & Lifestyle</p>
+    </div>
+
+    <!-- Bloque 2: Links de navegación -->
+    <div class="footer-block">
+      <h3>TIENDA</h3>
+      <ul>
+        <li><a href="#">Aviso Legal</a></li>
+        <li><a href="/pages/legal/Priv.html">Privacidad</a></li>
+        <li><a href="/pages/legal/Terminos.html">Terminos</a></li>
+        <li><a href="#">Cookies</a></li>
+      </ul>
+    </div>
+
+    <!-- Bloque 3: Información -->
+    <div class="footer-block">
+      <h3>INFO</h3>
+      <ul>
+        <li><a href="#">Aviso Legal</a></li>
+        <li><a href="/pages/legal/Priv.html">Privacidad</a></li>
+        <li><a href="/pages/legal/Terminos.html">Terminos</a></li>
+        <li><a href="#">Cookies</a></li>
+      </ul>
+    </div>
+
+    <!-- Bloque 4: Redes -->
+    <div class="footer-block">
+      <h3>SÍGUENOS</h3>
+      <div class="socials">
+        <a href="#">IG</a>
+        <a href="#">TW</a>
+        <a href="#">YT</a>
+        <a href="#">TT</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Línea inferior -->
+  <div class="footer-bottom">
+    <p>© 2025 CXSHOP — Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<div class="separator" style="border-bottom: 1px solid black; border-top: 1px solid black;">
+      <p class="texto-separador">∎ COLECCION DE INVIERNO </p>
+      <p class="texto-separador">COLECCIONES</p>
+</div>
+
+<section class="seccion-links" style="border-top: 1px solid black; margin-top: -20px; margin-bottom: 1 px solid black;">
+     <h2 class="titulo-links">EXPLORA <br><span >TODO LO QUE OFRECEMOS</span></h2>
+</section>
+
+<section class="seccion-showcase" style="border-top: 1px solid black;">
+  <div class="showcase-header" style="border-bottom: 1px solid black;">
+    <h2>EXPLORA NUESTRA VISIÓN</h2>
+    <p>Estilos seleccionados para quienes marcan tendencia.</p>
+  </div>
+</section>
+
+<div class="separator" style="border-bottom: 1px solid black;border-top: 1px solid black;">
+  <p class="texto-separador" id="icono-separador">∎ LOS MAS VENDIDOS</p>
+  <a href="" class="texto-separador">COLECCIONES ↵ </a>
+</div> #region -->
+
+
+<script>
+const slider = document.getElementById('slider');
+const products = slider.querySelectorAll('.product');
+const productWidth = products[0].offsetWidth; // ancho de un producto
+let index = 0;
+
+// Duplicamos los productos dinámicamente para el loop
+slider.innerHTML += slider.innerHTML;
+
+function moveSlider(direction = 1) {
+  index += direction;
+  slider.style.transition = 'transform 0.5s ease';
+  slider.style.transform = `translateX(${-index * productWidth}px)`;
+
+  // Si llegamos al final del primer bloque → reset al inicio
+  if (index >= products.length) {
+    setTimeout(() => {
+      slider.style.transition = 'none';
+      index = 0;
+      slider.style.transform = `translateX(0px)`;
+    }, 500);
+  }
+
+  // Si vamos demasiado hacia atrás → reset al final del primer bloque
+  if (index < 0) {
+    setTimeout(() => {
+      slider.style.transition = 'none';
+      index = products.length - 1;
+      slider.style.transform = `translateX(${-index * productWidth}px)`;
+    }, 500);
+  }
+}
+
+// Botones
+document.querySelector('.next').addEventListener('click', () => moveSlider(1));
+document.querySelector('.prev').addEventListener('click', () => moveSlider(-1));
+
+// Autoplay infinito
+setInterval(() => moveSlider(1), 3000);
+
+</script>
+
+<script>
+const symbols = ["∎", "⌗", "⌘", "∆", "∇", "☺", "☻", "◐", "◓", "◑", "◒"];
+  let currentIndex = 0;
+  const icono = document.getElementById("icono-separador");
+  function changeSymbol() {
+    currentIndex = (currentIndex + 1) % symbols.length;
+    icono.innerHTML = symbols[currentIndex] + " LOS MAS VENDIDOS";
+  }
+  setInterval(changeSymbol, 200);
+</script>
+
+<script>
+// 🔥 toggle del menú hamburguesa
+document.getElementById("hamburger").addEventListener("click", function() {
+  document.getElementById("menu-links").classList.toggle("active");
+});
+</script>
+
+
+<script>
+// 🔥 Ajusta automáticamente la altura de la top-bar
+function fixTopbarHeight() {
+  const tb = document.querySelector('.top-bar');
+  if (tb) {
+    document.documentElement.style.setProperty('--topbar-h', tb.offsetHeight + 'px');
+  }
+}
+window.addEventListener('load', fixTopbarHeight);
+window.addEventListener('resize', fixTopbarHeight);
+
+// 🔥 Toggle menú hamburguesa
+document.addEventListener("DOMContentLoaded", () => {
+  const burger = document.querySelector(".hamburger");
+  const menu = document.querySelector(".menu-links");
+  const closeBtn = document.querySelector(".menu-close");
+
+  if (burger && menu) {
+    burger.addEventListener("click", () => menu.classList.add("active"));
+  }
+  if (closeBtn && menu) {
+    closeBtn.addEventListener("click", () => menu.classList.remove("active"));
+  }
+});
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const burger = document.querySelector(".hamburger");
+  const menu = document.querySelector(".menu-links");
+  const closeBtn = document.querySelector(".menu-close");
+
+  if (burger && menu) {
+    burger.addEventListener("click", () => {
+      menu.classList.add("active");
+      document.body.style.overflow = "hidden"; // evita scroll del body
+    });
+  }
+
+  if (closeBtn && menu) {
+    closeBtn.addEventListener("click", () => {
+      menu.classList.remove("active");
+      document.body.style.overflow = ""; // reactiva scroll
+    });
+  }
+});
+
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/shopify-buy@2.20.1/index.umd.min.js"></script>
+<script src="/src/cart.js"></script>
+<script src="../src/script.js"></script>
+<!-- RELLENO DINAMICO DE PRODUCTOS -->
+<script>
+  async function loadProducts() {
+    try {
+      const products = await client.product.fetchAll();
+      const grid = document.getElementById("product-grid");
+      grid.innerHTML = products.map(product => `
+        <div class="product">
+          <a href="productpage.html?productId=${product.id}" style="text-decoration:none;color:#000">
+            <img src="${product.images[0]?.src}" alt="${product.title}">
+            <div class="product-info">
+              <div>${product.title}</div>
+              <div class="price">${product.variants[0].price.amount} USD</div>
+            </div>
+          </a>
+        </div>
+      `).join("");
+      console.log(`✅ ${products.length} productos cargados`);
+    } catch (err) {
+      console.error("❌ Error cargando productos:", err);
+    }
+  }
+
+  loadProducts();
+</script>
+</body>
+</html>
+
+
+
+
+

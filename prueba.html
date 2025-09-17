@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ejemplo: Gestión básica de Cookies - CXSHOP</title>
+<style>
+  /* ====== RESET BÁSICO ====== */
+  :root{
+    --bg:#ffffff;
+    --fg:#0b0b0b;
+    --accent:#000;
+    --muted:#666;
+    --panel-bg:#fff;
+    --glass: rgba(0,0,0,0.06);
+    --radius:10px;
+    --max-width:1100px;
+    font-family: Inter, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  }
+
+
+  /* ====== CONTENEDOR PRINCIPAL (ejemplo visual) ====== */
+  .page {
+    max-width:var(--max-width);
+    margin:32px auto;
+    padding:28px;
+    border:3px solid #000;
+    border-radius:12px;
+    background:linear-gradient(180deg, #fff, #fbfbfb);
+  }
+  .cookie-banner h1{font-size:28px;margin:0 0 8px;font-weight:800;letter-spacing:0.4px;text-transform:uppercase}
+  p.lead{margin:0 0 20px;color:var(--muted)}
+  /* ====== BANNER DE COOKIES ====== */
+  .cookie-banner {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    display: flex;
+    gap:18px;
+    align-items: center;
+    background:var(--panel-bg);
+    border:2px solid #000;
+    padding:18px;
+    border-radius:12px;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.12);
+    z-index: 9999;
+    max-width: calc(var(--max-width) - 64px);
+    margin: 0 auto;
+  }
+  .cookie-banner__content{flex:1;min-width:0}
+  .cookie-banner h3{margin:0 0 6px;font-size:16px}
+  .cookie-banner p{margin:0;color:var(--muted);font-size:14px}
+  .cookie-banner__actions{display:flex;gap:10px;align-items:center}
+  .cookie-banner .btn {
+    display:inline-block;padding:10px 14px;border:2px solid var(--accent);
+    background:transparent;color:var(--fg);font-weight:700;border-radius:8px;text-transform:uppercase;
+    cursor:pointer;
+  }
+  .cookie-banner .btn-primary{background:var(--accent);color:#fff}
+  .cookie-banner .btn-ghost{background:transparent}
+  .cookie-banner .btn:focus{outline:3px solid rgba(0,0,0,0.12)}
+  /* ====== LINK AJUSTES ====== */
+  .cookie-settings-link {font-size:13px;color:var(--muted);cursor:pointer}
+  /* ====== MODAL DE AJUSTES ====== */
+  .cookie-modal-backdrop {
+    position: fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:10000;
+  }
+  .cookie-modal {
+    width:92%;max-width:720px;background:#fff;border-radius:12px;padding:22px;border:3px solid #000;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+  .cookie-modal h2{margin-top:0;font-size:18px}
+  .cookie-category{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px dashed #e6e6e6}
+  .cookie-category:first-of-type{border-top:none}
+  .cookie-category p{margin:0;font-size:14px;color:var(--muted)}
+  .toggle{
+    position:relative;width:52px;height:30px;border-radius:999px;background:#e6e6e6;border:1px solid #ddd;cursor:pointer;flex-shrink:0;
+  }
+  .toggle .knob{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.12);transition:all .18s}
+  .toggle.on{background:#000}
+  .toggle.on .knob{left:25px;background:#fff}
+  .cookie-modal .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+  .small{font-size:13px;color:var(--muted)}
+  /* ====== RESPONSIVE ====== */
+  @media (max-width:680px){
+    .cookie-banner{flex-direction:column;align-items:stretch;bottom:12px;padding:14px}
+    .cookie-banner__actions{justify-content:space-between}
+  }
+</style>
+</head>
+<body>
+
+<div class="page" aria-live="polite">
+  <h1>Gestión de Cookies</h1>
+  <p class="lead">Implementación básica y segura para cumplir RGPD/ePrivacy: banner con consentimiento por categorías y carga condicional de scripts.</p>
+
+  <p>En la demo, verás cómo se bloquean los scripts de Analytics/Marketing hasta que el usuario acepta esas categorías en el modal.</p>
+
+  <p><strong>Estado de consentimiento actual (ejemplo):</strong>
+    <span id="consent-state" class="small">Sin registrar</span>
+  </p>
+
+  <hr style="margin:22px 0;border:none;border-top:1px solid #eee">
+
+  <h2>Notas de integración</h2>
+  <ul>
+    <li>Coloca este bloque <code>&lt;script&gt;…&lt;/script&gt;</code> en el footer de tu plantilla principal para que controle la carga de etiquetas.</li>
+    <li>Registra el consentimiento en tu servidor si necesitas trazabilidad legal (recomendado).</li>
+  </ul>
+</div>
+
+<!-- BANNER -->
+<aside class="cookie-banner" role="region" aria-label="Aviso de cookies" id="cookieBanner" hidden>
+  <div class="cookie-banner__content">
+    <h3>Usamos cookies para mejorar tu experiencia</h3>
+    <p>Usamos cookies necesarias, de preferencias y analítica. Puedes aceptar todas o configurar tus preferencias.</p>
+    <div style="margin-top:8px">
+      <a href="#" id="openCookieSettings" class="cookie-settings-link">Configurar cookies</a>
+    </div>
+  </div>
+
+  <div class="cookie-banner__actions" role="group" aria-label="Acciones cookies">
+    <button class="btn btn-ghost" id="rejectAll">Rechazar todo</button>
+    <button class="btn btn-primary" id="acceptAll">Aceptar todo</button>
+  </div>
+</aside>
+
+
+
+
+
+
+<!-- MODAL -->
+<div class="cookie-modal-backdrop" id="cookieModal" aria-hidden="true">
+  <div class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookieModalTitle">
+    <h2 id="cookieModalTitle">Ajustes de cookies</h2>
+    <p class="small">Selecciona las categorías que permites. Las cookies necesarias siempre están activas.</p>
+
+    <!-- CATEGORIAS -->
+    <div class="cookie-category" data-key="necessary">
+      <div>
+        <strong>Necesarias</strong>
+        <p class="small">Imprescindibles para el funcionamiento de la tienda (carrito, seguridad).</p>
+      </div>
+      <div>
+        <div class="toggle on" data-key="necessary" aria-hidden="true"><div class="knob"></div></div>
+      </div>
+    </div>
+
+    <div class="cookie-category" data-key="preferences">
+      <div>
+        <strong>Preferencias</strong>
+        <p class="small">Guardan idioma, apariencia y ajustes menores.</p>
+      </div>
+      <div>
+        <div class="toggle" data-key="preferences" tabindex="0" role="switch" aria-checked="false"><div class="knob"></div></div>
+      </div>
+    </div>
+
+    <div class="cookie-category" data-key="analytics">
+      <div>
+        <strong>Analítica</strong>
+        <p class="small">Estadísticas para mejorar el sitio (Google Analytics u otros).</p>
+      </div>
+      <div>
+        <div class="toggle" data-key="analytics" tabindex="0" role="switch" aria-checked="false"><div class="knob"></div></div>
+      </div>
+    </div>
+
+    <div class="cookie-category" data-key="marketing">
+      <div>
+        <strong>Marketing</strong>
+        <p class="small">Publicidad personalizada y seguimiento en redes sociales.</p>
+      </div>
+      <div>
+        <div class="toggle" data-key="marketing" tabindex="0" role="switch" aria-checked="false"><div class="knob"></div></div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="cancelSettings">Cancelar</button>
+      <button class="btn btn-primary" id="saveSettings">Guardar preferencias</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ========= GESTIÓN DE COOKIES + CONSENT =========
+   - cookieName guarda JSON con las categorías aceptadas
+   - estructura:
+     {
+       necessary: true,
+       preferences: false,
+       analytics: true,
+       marketing: false,
+       timestamp: 1678888888888
+     }
+   - Las cookies no esenciales deben respetar estas categorías
+*/
+
+/* CONFIGURACIÓN */
+const cookieName = 'cxshop_cookie_consent';
+const cookieExpiryDays = 365; // caducidad del consentimiento (ajustable)
+const privacyPolicyUrl = '/privacy'; // Ajusta a la URL real
+const cookieBanner = document.getElementById('cookieBanner');
+const cookieModal = document.getElementById('cookieModal');
+const consentStateEl = document.getElementById('consent-state');
+
+/* UTIL: SET / GET COOKIE (simple, sin librerías) */
+function setRawCookie(name, value, days) {
+  const d = new Date();
+  d.setTime(d.getTime() + (days*24*60*60*1000));
+  const expires = "expires=" + d.toUTCString();
+  document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/;SameSite=Lax";
+}
+function getRawCookie(name) {
+  const v = document.cookie.split('; ').find(row => row.startsWith(name + '='));
+  return v ? decodeURIComponent(v.split('=')[1]) : null;
+}
+
+/* LEE/ESCRIBE CONSENTIMIENTO JSON */
+function saveConsent(obj) {
+  try {
+    obj.timestamp = Date.now();
+    setRawCookie(cookieName, JSON.stringify(obj), cookieExpiryDays);
+    // opcional: enviar al servidor para registro legal
+    // fetch('/api/consent', {method:'POST', body:JSON.stringify(obj), headers:{'Content-Type':'application/json'}})
+    updateConsentUI(obj);
+  } catch (e) {
+    console.error('Error saving consent', e);
+  }
+}
+function readConsent() {
+  const raw = getRawCookie(cookieName);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch(e){
+    console.warn('Consent cookie corrupt, resetting');
+    return null;
+  }
+}
+
+/* UPDATE UI: muestra estado de consentimiento */
+function updateConsentUI(consent) {
+  if (!consent) {
+    consentStateEl.textContent = 'Sin registrar';
+    showBanner();
+    return;
+  }
+  const parts = [];
+  for (const k of ['necessary','preferences','analytics','marketing']) {
+    parts.push(k + ':' + (consent[k] ? '✓' : '✕'));
+  }
+  consentStateEl.textContent = parts.join(' · ') + ' · guardado: ' + (new Date(consent.timestamp)).toLocaleString();
+  hideBanner();
+}
+
+/* BANNER & MODAL BEHAVIOUR */
+function showBanner(){
+  cookieBanner.hidden = false;
+  cookieBanner.setAttribute('aria-hidden','false');
+}
+function hideBanner(){
+  cookieBanner.hidden = true;
+  cookieBanner.setAttribute('aria-hidden','true');
+}
+function openModal(){
+  cookieModal.style.display='flex';
+  cookieModal.setAttribute('aria-hidden','false');
+  // poblar toggles
+  const consent = readConsent();
+  for (const t of document.querySelectorAll('.toggle')) {
+    const key = t.dataset.key;
+    const enabled = consent ? !!consent[key] : (key === 'necessary'); // necessary true por defecto
+    setToggleState(t, enabled);
+  }
+}
+function closeModal(){
+  cookieModal.style.display='none';
+  cookieModal.setAttribute('aria-hidden','true');
+}
+
+/* Toggle helpers */
+function setToggleState(toggleEl, on) {
+  if (on) {
+    toggleEl.classList.add('on');
+    toggleEl.setAttribute('aria-checked','true');
+  } else {
+    toggleEl.classList.remove('on');
+    toggleEl.setAttribute('aria-checked','false');
+  }
+}
+function toggleFlip(toggleEl) {
+  const newState = !toggleEl.classList.contains('on');
+  const key = toggleEl.dataset.key;
+  if (key === 'necessary') return; // no se puede apagar
+  setToggleState(toggleEl, newState);
+}
+
+/* ACCIONES BOTONES */
+document.getElementById('openCookieSettings').addEventListener('click', (e)=>{
+  e.preventDefault();
+  openModal();
+});
+document.getElementById('acceptAll').addEventListener('click', (e)=>{
+  const all = { necessary:true, preferences:true, analytics:true, marketing:true };
+  saveConsent(all);
+  applyConsentActions(all);
+});
+document.getElementById('rejectAll').addEventListener('click', (e)=>{
+  const none = { necessary:true, preferences:false, analytics:false, marketing:false };
+  saveConsent(none);
+  applyConsentActions(none);
+});
+document.getElementById('cancelSettings').addEventListener('click', (e)=>{
+  e.preventDefault();
+  closeModal();
+});
+document.getElementById('saveSettings').addEventListener('click', (e)=>{
+  const toggles = document.querySelectorAll('.toggle');
+  const obj = {};
+  toggles.forEach(t => {
+    obj[t.dataset.key] = t.classList.contains('on') || t.dataset.key === 'necessary';
+  });
+  saveConsent(obj);
+  applyConsentActions(obj);
+  closeModal();
+});
+
+/* TOGGLE CLICK + KEYBOARD accesibilidad */
+document.querySelectorAll('.toggle').forEach(t=>{
+  t.addEventListener('click', ()=> toggleFlip(t));
+  t.addEventListener('keydown', (ev)=>{
+    if (ev.key === 'Enter' || ev.key === ' ') {
+      ev.preventDefault();
+      toggleFlip(t);
+    }
+  });
+});
+
+/* INICIALIZACIÓN: Leer consentimiento y actuar */
+(function initConsent(){
+  const existing = readConsent();
+  updateConsentUI(existing);
+  // mostrar banner si no existe consentimiento
+  if (!existing) {
+    showBanner();
+  } else {
+    // aplicar acciones que dependan del consentimiento (cargar scripts etc)
+    applyConsentActions(existing);
+  }
+})();
+
+/* ======= ACCIONES DEPENDIENTES DEL CONSENTIMIENTO =======
+   AQUI colocas la lógica para cargar scripts o activar funcionalidades
+   solo si el usuario aceptó la categoría correspondiente.
+*/
+function applyConsentActions(consent) {
+  // Actualizar UI
+  updateConsentUI(consent);
+
+  // PREFERENCES: ejemplo — establecer tema o idioma
+  if (consent.preferences) {
+    // restaurar tema/idioma guardado (ejemplo)
+    console.log('Preferencias activadas');
+  } else {
+    console.log('Preferencias desactivadas');
+  }
+
+  // ANALYTICS: carga condicional de Google Analytics (ejemplo)
+  if (consent.analytics) {
+    loadGoogleAnalytics();
+  } else {
+    // si alguna vez se cargó, intenta desactivar/limpiar: gtag('consent', 'update', ...)
+    console.log('Analytics desactivado');
+  }
+
+  // MARKETING: carga condicional de píxeles y remarketing
+  if (consent.marketing) {
+    loadMarketingPixel();
+  } else {
+    console.log('Marketing desactivado');
+  }
+}
+
+/* ======= EJEMPLOS DE CARGA CONDICIONAL ======= */
+
+/* Google Analytics (gtag) - solo se carga si analytics = true.
+   Nota: sustituye MEASUREMENT_ID por tu id real (G-XXXX)
+*/
+function loadGoogleAnalytics(){
+  if (window._ga_loaded) return;
+  window._ga_loaded = true;
+  // ejemplo: carga gtag.js de forma dinámica
+  const id = 'G-XXXXXXXXXX'; // Cambia por tu ID real
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = "https://www.googletagmanager.com/gtag/js?id=" + id;
+  document.head.appendChild(script);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', id, { 'anonymize_ip': true, 'send_page_view': true });
+  console.log('Google Analytics cargado (demo).');
+}
+
+/* Marketing pixel (ejemplo genérico) */
+function loadMarketingPixel(){
+  if (window._mk_loaded) return;
+  window._mk_loaded = true;
+  // inserta aquí la carga dinámica del pixel (Facebook, TikTok, etc.)
+  console.log('Marketing pixel cargado (demo).');
+}
+
+/* ======= FUNCIONES AUXILIARES / PARA DESARROLLADORES ======= */
+
+/* Permite revocar el consentimiento desde UI (botón externo). */
+function revokeConsent() {
+  const none = { necessary:true, preferences:false, analytics:false, marketing:false };
+  saveConsent(none);
+  applyConsentActions(none);
+  openModal();
+}
+
+/* Proveer un helper para que otros scripts consulten el consentimiento actual sin parsear cookies */
+window.CXSHOPCookies = {
+  getConsent: () => readConsent(),
+  hasConsentFor: (cat) => {
+    const c = readConsent();
+    return !!(c && c[cat]);
+  },
+  revoke: revokeConsent
+};
+
+/* Ejemplo: bloquear cookie set por terceros (idealmente no permitir su carga hasta comprobar consentimiento):
+   - No hay forma fiable de "borrar" cookies de otros dominios desde JS si ya se han establecido (por eso bloquear la carga es clave).
+*/
+
+/* FIN del script */
+</script>
+
+<!-- ====== EJEMPLO DE USO: Botón para "revocar consentimiento" visible en toda la web ====== -->
+<button aria-hidden="false" onclick="revokeConsent()" style="position:fixed;right:16px;bottom:96px;padding:10px 12px;border:2px solid #000;background:#fff;border-radius:10px;z-index:9998">
+  Cambiar cookies
+</button>
+
+</body>
+</html>

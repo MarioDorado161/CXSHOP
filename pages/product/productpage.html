@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CXSHOP</title>
+  <link rel="stylesheet" href="../../src/style.css">
+
+  <style>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* ===== LAYOUT PRINCIPAL ===== */
+    .product-page {
+      display: flex;
+      width: 100%;
+    }
+
+    /* Columna izquierda - galería */
+    .left-side {
+      flex: 1.2;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .main-image {
+      width: 100%;
+      max-height: 70vh;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .thumbnail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 10px;
+      width: 100%;
+    }
+
+    .thumbnail {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      transition: border 0.3s;
+    }
+
+    .thumbnail:hover {
+      border: 2px solid #ff6600;
+    }
+
+    /* Columna derecha - detalles */
+    .product-details {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .back {
+      font-size: 14px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .price {
+      font-size: 18px;
+      margin: 10px 0 30px;
+    }
+
+    .add-to-cart {
+      background: #ff6600;
+      color: #fff;
+      border: none;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 30px;
+      transition: background 0.3s;
+    }
+
+    .add-to-cart:hover {
+      background: #e25500;
+    }
+
+    .accordion {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 12px 0;
+  font-weight: bold;
+}
+
+.accordion-header .icon {
+  transition: transform 0.3s ease;
+  font-size: 18px;
+  color: #ff6600; /* 🔥 naranja para resaltar */
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  padding: 0 0;
+  color: #444;
+}
+
+.accordion.active .accordion-content {
+  max-height: 200px; /* ajusta según necesites */
+  padding: 10px 0;
+}
+
+.accordion.active .icon {
+  transform: rotate(45deg); /* + se convierte en x */
+}
+
+    /* Variaciones */
+    .variations {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .variation {
+      width: 60px;
+      height: 60px;
+      border: 1px solid black !important;
+      overflow: hidden;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: border 0.3s;
+    }
+
+    .variation img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .variation:hover {
+      border: 2px solid #ff6600;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .product-page {
+        flex-direction: column;
+      }
+
+      .left-side {
+        order: 1;
+      }
+
+      .product-details {
+        order: 2;
+        padding: 20px;
+      }
+
+      .thumbnail-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      }
+
+      .variation {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+
+.size-option{
+  margin-top: -15px;
+  margin-bottom: 15px;
+}
+
+.size-option:hover{
+  background-color: #ff6600;
+}
+
+.atras-btn{
+  color: #e25500 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*SEPARADOR CON TEXTOS*/
+
+
+
+
+.separator {
+          display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+}
+
+.separator h1 {
+          font-size: 44px;
+      margin: 0;
+      font-weight: bolder;
+      margin-left: -15px;
+}
+.texto-separador {
+          font-size: 20px;
+      margin: 0;
+      font-weight: light;
+      margin-left: -15px;
+      text-decoration: none;
+      color: black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .slider {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .product {
+    min-width: 25%; /* 4 por fila */
+    border-right: 1px solid black;
+    text-align: center;
+    background: white;
+  }
+
+  .product img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Botones */
+  .slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    font-size: 22px;
+    font-weight: 100;
+    color: rgba(255, 255, 255, 0.719);
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    padding: 0;
+  }
+
+  .prev { left: 10px; }
+  .next { right: 10px; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .product { min-width: 33.33%; }
+  }
+  @media (max-width: 768px) {
+    .product { min-width: 50%; }
+  }
+  @media (max-width: 480px) {
+    .product { min-width: 100%; }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </style>
+</head>
+
+
+
+
+
+
+
+
+
+<body>
+
+<div class="top-bar">
+    <div class="scroll">
+        - NO SE ACEPTAN DEVOLUCIONES - &nbsp; - ENVIOS GRATIS A TODA ESPAÑA SUPERANDO LOS 50€ -
+        - NO SE ACEPTAN DEVOLUCIONES - &nbsp; - ENVIOS GRATIS A TODA ESPAÑA SUPERANDO LOS 50€ -
+    </div>
+</div>
+    <!-- Header principal -->
+<header>
+  <a href="../../index.html" style="text-decoration: none; color: #000000;">
+        <h1 style="letter-spacing: -2px;">CXSHOP</h1></a>
+        <div>PARIS, FR<br> <div class="Reloj">17:24:00</div></div>
+</header>
+    <!-- Barra verde con menú -->
+<div class="green-bar">
+  <nav class="menu">
+    <!-- Botón hamburguesa -->
+    <div class="hamburger" id="hamburger">&#9776;</div>
+
+    <!-- Menú links -->
+    <div class="menu-links" id="menu-links">
+  <button class="menu-close" id="menu-close" aria-label="Cerrar">✕</button>
+
+  <!-- TIENDA -->
+  <div class="submenu-container">
+    <a href="/pages/shop.html" class="link-principal">TIENDA</a>
+    <div class="submenu" style="margin-left: -18px;">
+      <div class="submenu-columns">
+        <div class="submenu-column">
+          <h4>SHOP ALL</h4>
+          <a href="#">Nuevo</a>
+          <a href="#">Rebajas</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Hombre</h4>
+          <a href="#">Pantalones</a>
+          <a href="#">Upperwear</a>
+          <a href="#">Conjuntos</a>
+          <a href="#">Zapatillas</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Mujer</h4>
+          <a href="#">Pantalones</a>
+          <a href="#">Upperwear</a>
+          <a href="#">Conjuntos</a>
+          <a href="#">Zapatillas</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Accesorios</h4>
+          <a href="#">Gorros</a>
+          <a href="#">Bolsos</a>
+          <a href="#">Relojes</a>
+          <a href="#">Joyería</a>
+        </div>
+      </div>
+      <div class="submenu-images">
+        <a href="#"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/6a6c5ca3-050a-4dd9-9de1-3f6a301f26a6/M+NL+SOLO+SWSH+BB+OH+PANT.png" alt="Mens"></a>
+        <a href="#"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/ed1011b1-54a5-4f07-961c-1c1ec414d3dc/W+NK+TEMPO+DF+MR+3%22+SHORT.png" alt="Womens"></a>
+        <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/ae4a9f78-78be-459a-be67-cf0ea3efe1d0/image.jpg" alt="Sneakers"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLECCIONES -->
+  <div class="submenu-container">
+    <a href="#" class="link-principal">COLECCIONES</a>
+    <div class="submenu">
+      <div class="submenu-columns">
+        <div class="submenu-column">
+          <h4>Ediciones Limitadas</h4>
+          <a href="#">Premium</a>
+          <a href="#">Collabs</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Clásicos</h4>
+          <a href="#">Retro</a>
+          <a href="#">Heritage</a>
+        </div>
+      </div>
+      <div class="submenu-images">
+        <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/1.jpg" alt="Limited"></a>
+        <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/2.jpg" alt="Classic"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAS -->
+  <div class="submenu-container">
+    <a href="#" class="link-principal">MÁS</a>
+    <div class="submenu">
+      <div class="submenu-columns">
+        <div class="submenu-column">
+          <h4>Información</h4>
+          <a href="#">Sobre nosotros</a>
+          <a href="#">Sostenibilidad</a>
+          <a href="#">Blog</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Soporte</h4>
+          <a href="#">Contacto</a>
+          <a href="#">FAQ</a>
+          <a href="#">Términos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+  </nav>
+
+  <!-- parte derecha -->
+  <div class="right-info">
+    <div>BUSCAR</div>
+    <div class="cart" style="cursor: pointer;">CART<sup style="color: #e25500;">0</sup></div>
+  </div>
+</div>
+
+<!-- Carrito lateral -->
+<div id="cart-panel" class="cart-panel">
+  <div class="cart-header">
+    <h2>CARRITO</h2>
+    <button id="close-cart">✕</button>
+  </div>
+  <div id="cart-items" class="cart-items">
+    <p>Tu carrito está vacío</p>
+  </div>
+  <div class="cart-footer">
+    <span>Total: <strong id="cart-total">0 €</strong></span>
+    <button id="checkout-btn">Finalizar compra</button>
+  </div>
+</div>
+
+<!-- Overlay oscuro -->
+<div id="cart-overlay" class="cart-overlay"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="product-page">
+    <!-- Galería izquierda -->
+    <div class="left-side">
+      <img id="mainImage" src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/4906dd0a-96d2-46d3-b70c-cd7c0227deef/WMNS+AIR+FORCE+1+%2707.png" alt="Main Product" class="main-image">
+
+      <div class="thumbnail-grid">
+         <img id="mainImage" src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/4906dd0a-96d2-46d3-b70c-cd7c0227deef/WMNS+AIR+FORCE+1+%2707.png" class="thumbnail" onclick="changeImage(this)">
+         <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/57558712-5ebe-4abb-9984-879f9e896b4c/W+AIR+FORCE+1+%2707+FLYEASE.png" class="thumbnail" onclick="changeImage(this)">
+         <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/b39413f0-19c5-4721-8889-86e8156c4047/W+AIR+FORCE+1+%2707+FLYEASE.png" class="thumbnail" onclick="changeImage(this)">
+         <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/bd17ee22-a4bb-4667-9ab2-6d6e0d58e15a/W+AIR+FORCE+1+%2707+FLYEASE.png" class="thumbnail" onclick="changeImage(this)">
+         <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/679926d2-7ea1-4dbc-83dc-06ba879f60cd/W+AIR+FORCE+1+%2707+FLYEASE.png" class="thumbnail" onclick="changeImage(this)">
+      </div>
+    </div>
+
+    <!-- Detalles derecha -->
+    <div class="product-details">
+      <div class="back">
+            <a href="javascript:window.history.back();" style="text-decoration: none; color: #000000;" class="atras-btn">
+                ← BACK
+            </a>
+      </div>
+      <div class="title">SPORT CROSSBODY</div>
+      <div class="price">60 USD</div>
+
+
+
+      <!-- Debajo del precio, antes del botón -->
+    <div class="size-selector" style="display:grid; grid-template-columns: repeat(5, 50px); gap:10px; margin:15px 0;">
+      <div class="size-option" style="border:1px solid #000; text-align:center; padding:10px; cursor:pointer;">XS</div>
+      <div class="size-option" style="border:1px solid #000; text-align:center; padding:10px; cursor:pointer;">S</div>
+      <div class="size-option" style="border:1px solid #000; text-align:center; padding:10px; cursor:pointer;">M</div>
+      <div class="size-option" style="border:1px solid #000; text-align:center; padding:10px; cursor:pointer;">L</div>
+      <div class="size-option" style="border:1px solid #000; text-align:center; padding:10px; cursor:pointer;">XL</div>
+    </div>
+
+
+
+      <button class="add-to-cart">ADD TO CART</button>
+
+        <div class="accordion">
+        <div class="accordion-header">
+            <span>DESCRIPCION DEL PRODUCTO</span>
+            <span class="icon">+</span>
+        </div>
+        <div class="accordion-content">
+            <p>
+            Classic Nike Air Force 1 '07 sneakers with timeless design, premium leather, 
+            and unmatched comfort. Perfect for everyday wear.
+            </p>
+        </div>
+        </div>
+
+        <div class="accordion">
+        <div class="accordion-header">
+            <span>GUIA DE TALLAS</span>
+            <span class="icon">+</span>
+        </div>
+        <div class="accordion-content">
+            <p>
+            Fits true to size. We recommend selecting your regular size. 
+            For wider feet, consider sizing up.
+            </p>
+        </div>
+        </div>
+
+      <!-- Variaciones -->
+      <div class="variations">
+        <div class="variation"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/98a5a343-0242-4ae3-901c-a055bde8a84d/NIKE+AIR+FORCE+1+GS.png" alt="Black"></div>
+        <div class="variation"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/ce57e713-c110-492a-b271-f81f3436e1eb/AIR+FORCE+1+%2707.png" alt="Black"></div>
+        <div class="variation"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d8825c05-16f8-4d94-a2fc-3b61b8d4aa6d/WMNS+AIR+FORCE+1+%2707+LX.png" alt="Black"></div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="separator" style="border-bottom: 1px solid black;">
+  <p class="texto-separador" id="icono-separador">∎ LOS MAS VENDIDOS</p>
+  <a href="" class="texto-separador">COLECCIONES ↵ </a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- #region -->
+<div class="slider-container">
+  <button class="slider-btn prev">&#10094;</button>
+  <div class="slider" id="slider">
+    <!-- 8 productos (bloque original) -->
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/tjkr8ecmktw7qooy9d0h/NIKE+SHOX+TL.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/b7d9211c-26e7-431a-ac24-b0540fb3c00f/AIR+FORCE+1+%2707.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/dfdacd53-f40c-49e6-a72b-e0c0d3bdc42f/NIKE+AIR+MAX+PLUS.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b2549df0-1a59-4595-a776-ec1dd83dc1e3/JORDAN+MVP+92.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/6f9a935e-2103-43d9-8866-4bb9c8edf73f/AIR+MAX+PLUS.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/i1-e0d861d0-bee1-4902-9e61-361a3da4fc14/AIR+MAX+PLUS+III.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8397fa2b-f6b8-414f-b84b-c1f420f07f28/NIKE+CALM+SLIDE.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/7a2aec98-34b7-4a6e-85e4-9bec4bb5d963/AIR+MAX+TL+2.5.png"></div>
+    <!-- Clonamos los mismos 8 productos (bloque duplicado) -->
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/tjkr8ecmktw7qooy9d0h/NIKE+SHOX+TL.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/b7d9211c-26e7-431a-ac24-b0540fb3c00f/AIR+FORCE+1+%2707.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/dfdacd53-f40c-49e6-a72b-e0c0d3bdc42f/NIKE+AIR+MAX+PLUS.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b2549df0-1a59-4595-a776-ec1dd83dc1e3/JORDAN+MVP+92.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/6f9a935e-2103-43d9-8866-4bb9c8edf73f/AIR+MAX+PLUS.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/i1-e0d861d0-bee1-4902-9e61-361a3da4fc14/AIR+MAX+PLUS+III.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8397fa2b-f6b8-414f-b84b-c1f420f07f28/NIKE+CALM+SLIDE.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/7a2aec98-34b7-4a6e-85e4-9bec4bb5d963/AIR+MAX+TL+2.5.png"></div>
+  </div>
+  <button class="slider-btn next">&#10095;</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="top-bar" >
+    <div class="scroll">
+        - NO SE ACEPTAN DEVOLUCIONES - &nbsp; - ENVIOS GRATIS A TODA ESPAÑA SUPERANDO LOS 50€ -
+        - NO SE ACEPTAN DEVOLUCIONES - &nbsp; - ENVIOS GRATIS A TODA ESPAÑA SUPERANDO LOS 50€ -
+    </div>
+</div>
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Bloque 1: Logo / Marca -->
+    <div class="footer-block">
+      <h2>CXSHOP</h2>
+      <p>Streetwear & Lifestyle</p>
+    </div>
+
+    <!-- Bloque 2: Links de navegación -->
+    <div class="footer-block">
+      <h3>TIENDA</h3>
+      <ul>
+        <li><a href="#">Aviso Legal</a></li>
+        <li><a href="/pages/legal/Priv.html">Privacidad</a></li>
+        <li><a href="/pages/legal/Terminos.html">Terminos</a></li>
+        <li><a href="#">Cookies</a></li>
+      </ul>
+    </div>
+
+    <!-- Bloque 3: Información -->
+    <div class="footer-block">
+      <h3>INFO</h3>
+      <ul>
+        <li><a href="#">Aviso Legal</a></li>
+        <li><a href="/pages/legal/Priv.html">Privacidad</a></li>
+        <li><a href="/pages/legal/Terminos.html">Terminos</a></li>
+        <li><a href="#">Cookies</a></li>
+      </ul>
+    </div>
+
+    <!-- Bloque 4: Redes -->
+    <div class="footer-block">
+      <h3>SÍGUENOS</h3>
+      <div class="socials">
+        <a href="#">IG</a>
+        <a href="#">TW</a>
+        <a href="#">YT</a>
+        <a href="#">TT</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Línea inferior -->
+  <div class="footer-bottom">
+    <p>© 2025 CXSHOP — Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+
+
+
+<script>
+const slider = document.getElementById('slider');
+const products = slider.querySelectorAll('.product');
+const productWidth = products[0].offsetWidth; // ancho de un producto
+let index = 0;
+
+// Duplicamos los productos dinámicamente para el loop
+slider.innerHTML += slider.innerHTML;
+
+function moveSlider(direction = 1) {
+  index += direction;
+  slider.style.transition = 'transform 0.5s ease';
+  slider.style.transform = `translateX(${-index * productWidth}px)`;
+
+  // Si llegamos al final del primer bloque → reset al inicio
+  if (index >= products.length) {
+    setTimeout(() => {
+      slider.style.transition = 'none';
+      index = 0;
+      slider.style.transform = `translateX(0px)`;
+    }, 500);
+  }
+
+  // Si vamos demasiado hacia atrás → reset al final del primer bloque
+  if (index < 0) {
+    setTimeout(() => {
+      slider.style.transition = 'none';
+      index = products.length - 1;
+      slider.style.transform = `translateX(${-index * productWidth}px)`;
+    }, 500);
+  }
+}
+
+// Botones
+document.querySelector('.next').addEventListener('click', () => moveSlider(1));
+document.querySelector('.prev').addEventListener('click', () => moveSlider(-1));
+
+// Autoplay infinito
+setInterval(() => moveSlider(1), 3000);
+
+</script>
+
+<script>
+const symbols = ["∎", "⌗", "⌘", "∆", "∇", "☺", "☻", "◐", "◓", "◑", "◒"];
+  let currentIndex = 0;
+  const icono = document.getElementById("icono-separador");
+  function changeSymbol() {
+    currentIndex = (currentIndex + 1) % symbols.length;
+    icono.innerHTML = symbols[currentIndex] + " LOS MAS VENDIDOS";
+  }
+  setInterval(changeSymbol, 200);
+</script>
+
+<script>
+// 🔥 toggle del menú hamburguesa
+document.getElementById("hamburger").addEventListener("click", function() {
+  document.getElementById("menu-links").classList.toggle("active");
+});
+</script>
+
+
+<script>
+// 🔥 Ajusta automáticamente la altura de la top-bar
+function fixTopbarHeight() {
+  const tb = document.querySelector('.top-bar');
+  if (tb) {
+    document.documentElement.style.setProperty('--topbar-h', tb.offsetHeight + 'px');
+  }
+}
+window.addEventListener('load', fixTopbarHeight);
+window.addEventListener('resize', fixTopbarHeight);
+
+// 🔥 Toggle menú hamburguesa
+document.addEventListener("DOMContentLoaded", () => {
+  const burger = document.querySelector(".hamburger");
+  const menu = document.querySelector(".menu-links");
+  const closeBtn = document.querySelector(".menu-close");
+
+  if (burger && menu) {
+    burger.addEventListener("click", () => menu.classList.add("active"));
+  }
+  if (closeBtn && menu) {
+    closeBtn.addEventListener("click", () => menu.classList.remove("active"));
+  }
+});
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const burger = document.querySelector(".hamburger");
+  const menu = document.querySelector(".menu-links");
+  const closeBtn = document.querySelector(".menu-close");
+
+  if (burger && menu) {
+    burger.addEventListener("click", () => {
+      menu.classList.add("active");
+      document.body.style.overflow = "hidden"; // evita scroll del body
+    });
+  }
+
+  if (closeBtn && menu) {
+    closeBtn.addEventListener("click", () => {
+      menu.classList.remove("active");
+      document.body.style.overflow = ""; // reactiva scroll
+    });
+  }
+});
+
+</script>
+
+
+  <script>
+    // Cambiar imagen principal al pulsar una miniatura
+    function changeImage(element) {
+      const mainImage = document.getElementById("mainImage");
+      mainImage.src = element.src;
+    }
+  </script>
+
+
+<script>
+  document.querySelectorAll(".accordion-header").forEach(header => {
+    header.addEventListener("click", () => {
+      const accordion = header.parentElement;
+      accordion.classList.toggle("active");
+    });
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/shopify-buy@2.20.1/index.umd.min.js"></script>
+
+
+<!-- <script>
+
+  const client = ShopifyBuy.buildClient({
+    domain: 'TU_TIENDA.myshopify.com',
+    storefrontAccessToken: 'TU_ACCESS_TOKEN'
+  });
+
+  let checkoutId;
+  const cartBtn = document.querySelector('.cart');
+  const cartPanel = document.getElementById('cart-panel');
+  const cartOverlay = document.getElementById('cart-overlay');
+  const closeCartBtn = document.getElementById('close-cart');
+  const cartItemsContainer = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  const checkoutBtn = document.getElementById('checkout-btn');
+  const cartCount = document.querySelector('.cart sup');
+
+  // Inicializar checkout
+  async function initCheckout() {
+    const checkout = await client.checkout.create();
+    checkoutId = checkout.id;
+  }
+  initCheckout();
+
+  // Abrir carrito
+  cartBtn.addEventListener('click', () => {
+    cartPanel.classList.add('open');
+    cartOverlay.classList.add('active');
+  });
+
+  // Cerrar carrito
+  closeCartBtn.addEventListener('click', closeCart);
+  cartOverlay.addEventListener('click', closeCart);
+  function closeCart() {
+    cartPanel.classList.remove('open');
+    cartOverlay.classList.remove('active');
+  }
+
+  // Añadir producto al carrito (llámalo desde productpage.html)
+  async function addToCart(variantId, quantity = 1) {
+    const lineItemsToAdd = [{ variantId, quantity }];
+    const checkout = await client.checkout.addLineItems(checkoutId, lineItemsToAdd);
+    renderCart(checkout);
+  }
+
+  // Renderizar carrito
+  function renderCart(checkout) {
+    if (checkout.lineItems.length === 0) {
+      cartItemsContainer.innerHTML = "<p>Tu carrito está vacío</p>";
+      cartTotal.textContent = "0 €";
+      cartCount.textContent = "0";
+      return;
+    }
+
+    cartItemsContainer.innerHTML = "";
+    checkout.lineItems.forEach(item => {
+      const itemHTML = `
+        <div class="cart-item">
+          <img src="${item.variant.image.src}" width="50">
+          <div>
+            <p>${item.title}</p>
+            <p>${item.variant.title} - ${item.quantity} x ${item.variant.price.amount} €</p>
+          </div>
+        </div>
+      `;
+      cartItemsContainer.innerHTML += itemHTML;
+    });
+
+    cartTotal.textContent = checkout.totalPrice.amount + " €";
+    cartCount.textContent = checkout.lineItems.length;
+  }
+
+  // Ir a checkout Shopify
+  checkoutBtn.addEventListener('click', async () => {
+    const checkout = await client.checkout.fetch(checkoutId);
+    window.location.href = checkout.webUrl;
+  });
+
+  // 🔥 Exponer función global para usarla en productpage.html
+  window.addToCart = addToCart;
+
+
+
+// === Abrir carrito ===
+cartBtn.addEventListener('click', () => {
+  cartPanel.classList.add('open');
+  cartOverlay.classList.add('active');
+});
+
+// === Cerrar carrito ===
+function closeCart() {
+  cartPanel.classList.remove('open');
+  cartOverlay.classList.remove('active');
+}
+
+closeCartBtn.addEventListener('click', closeCart);
+cartOverlay.addEventListener('click', closeCart);
+
+</script> -->
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/shopify-buy@2.20.1/index.umd.min.js"></script>
+<script src="../../src/cart.js"></script>
+</body>
+</html>
+
+
+

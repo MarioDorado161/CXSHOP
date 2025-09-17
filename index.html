@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CXSHOP</title>
+
+
+  <link rel="stylesheet" href="./src/style.css">
+
+ 
+
+  <style>
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*HERO*/
+
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url("https://www.nocta.com/cdn/shop/files/NOCTA_HOMEPAGE_IMAGE_DESKTOP_V2.jpg?v=1708579008&width=2000") 
+                  no-repeat center center/cover; /* 🔥 imagen de fondo */
+      color: white; /* contraste con el fondo */
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /*  background: rgba(0,0,0,0.3); 🔥 oscurece un poco la imagen para que el texto resalte */
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 40px;        
+      right: 40px;      
+      text-align: right;
+      z-index: 1; /* asegura que quede por encima del overlay */
+    }
+
+    .hero-text h1 {
+      font-size: 256px;
+      margin: 0;
+      font-weight: 700;
+      margin-top: -20px;
+    }
+
+    .hero-text p {
+      font-size: 64px;
+      transform: uppercase;
+      font-weight: 800;
+      margin-top: -50px;
+    }
+  
+
+/* ===== Ajustes extra en pantallas pequeñas ===== */
+@media (max-width: 768px) {
+  .hero {
+    height: 75vh; /* un poco menos alto en móvil */
+    background-position: center top;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-text {
+    top: auto;
+    bottom: 20px;  /* texto abajo en móvil */
+    right: 20px;
+    text-align: center;
+    width: 100%;
+
+  }
+
+  .hero-text h1 {
+    font-size: clamp(70px, 10vw, 96px);
+    letter-spacing: -5px !important;
+    justify-content: center;
+    margin-left: 120px;
+  
+  }
+
+  .hero-text p {
+    font-size: clamp(16px, 4vw, 32px);
+    margin-top: -10px;
+  }
+}
+
+
+
+
+
+
+
+
+    /*SEPARADOR CON TEXTOS*/
+
+
+
+
+.separator {
+          display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+}
+
+.separator h1 {
+   
+      margin: 0;
+      font-weight: bolder;
+      margin-left: -15px;
+}
+.texto-separador {
+          font-size: 20px;
+      margin: 0;
+      font-weight: light;
+      margin-left: -15px;
+      text-decoration: none;
+      color: black;
+}
+
+@media (max-width: 768px) {
+  .texto-separador{
+      font-size: 16px;
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .slider {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .product {
+    min-width: 25%; /* 4 por fila */
+    border-right: 1px solid black;
+    text-align: center;
+    background: white;
+  }
+
+  .product img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Botones */
+  .slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    font-size: 22px;
+    font-weight: 100;
+    color: rgba(255, 255, 255, 0.719);
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    padding: 0;
+  }
+
+  .prev { left: 10px; }
+  .next { right: 10px; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .product { min-width: 33.33%; }
+  }
+  @media (max-width: 768px) {
+    .product { min-width: 50%; }
+  }
+  @media (max-width: 480px) {
+    .product { min-width: 100%; }
+  }
+
+
+
+
+
+
+
+
+
+
+.seccion-links {
+  text-align: center;
+  background: #fff;
+  padding: 20px 0;
+}
+
+/* Título */
+.seccion-links .titulo-links {
+  font-size: 18px;
+  font-weight: normal;
+  margin-bottom: 15px;
+}
+
+.seccion-links .titulo-links span {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Contenedor imágenes */
+.links-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  height: 80vh; /* estilo original desktop */
+  margin: 0 auto;
+}
+
+/* Cada bloque */
+.link-box {
+  flex: 1;
+  position: relative;
+}
+
+.link-box img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0;
+  padding: 0;
+}
+
+/* Botones */
+.btn-link {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 20px;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.btn-link.mens {
+  background: white;
+  color: black;
+}
+
+.btn-link.womens {
+  background: rgb(0, 0, 0);
+  color: white;
+}
+
+/* Responsive tablet/móvil */
+@media (max-width: 1024px) {
+  .links-container {
+    flex-direction: column; /* apilar */
+    height: auto; /* ya no 80vh */
+  }
+
+  .link-box {
+    width: 100%;
+  }
+
+  .link-box img {
+    width: 100%;
+    height: auto;       /* que se adapte */
+    max-height: 400px;  /* límite para no desbordar */
+    object-fit: cover;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-item {
+  position: relative;
+  min-width: 25%;
+  border-right: 1px solid black;
+  text-align: center;
+  background: white;
+  height: 600px; /* altura de referencia del item */
+  overflow: hidden; /* evita que la imagen sobresalga */
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover; /* llena todo el item sin deformar */
+}
+/* Caption (texto + botón) */
+.carousel-caption {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: #fff;
+  text-align: left;
+
+  padding: 10px;
+  border-radius: 5px;
+
+}
+
+.carousel-caption h3 {
+  margin: 0 0 5px 0;
+  font-size: 26px;
+  text-transform: uppercase;
+}
+
+.carousel-caption button {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #ff4500;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Botones del carousel */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.274);
+  border: none;
+  font-size: 18px;
+  font-weight: 100;
+  color: rgba(255, 255, 255, 0.322);
+  cursor: pointer;
+  z-index: 2;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  padding: 0;
+}
+
+.carousel-btn.prev { left: 10px; }
+.carousel-btn.next { right: 10px; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .carousel-item { min-width: 33.33%; }
+}
+@media (max-width: 768px) {
+  .carousel-item { min-width: 50%; }
+}
+@media (max-width: 480px) {
+  .carousel-item { min-width: 100%; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.seccion-showcase {
+  padding: 0px 0px;
+  background: #fff;
+}
+
+.showcase-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.showcase-header h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.showcase-header p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* GRID */
+.showcase-grid {
+  display: grid;
+  grid-template-areas:
+    "grande grande mediano"
+    "grande grande mediano"
+    "pequeno pequeno mediano";
+
+  max-width: 1800px;
+  margin: 0 auto;
+  max-height: 100vh;
+  border-left: 1px solid black;
+   border-right: 1px solid black;
+    border-bottom: 1px solid black;
+  gap: 2px;
+  background-color: black;
+}
+
+.showcase-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.showcase-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+
+.showcase-item:hover img {
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.showcase-item:hover .overlay {
+  opacity: 1;
+}
+
+.overlay h3 {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.overlay button {
+  background: #000000;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  color: white;
+  transition: background .3s ease;
+}
+
+.overlay button:hover {
+  background: #A8FF60;
+  color: black;
+}
+
+/* Grid Areas */
+.grande {
+  grid-area: grande;
+  min-height: 500px;
+}
+.mediano {
+  grid-area: mediano;
+  min-height: 500px;
+}
+.pequeno {
+  min-height: 240px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .showcase-grid {
+    grid-template-areas:
+      "grande"
+      "mediano"
+      "pequeno"
+      "pequeno";
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </style>
+</head>
+
+
+
+
+
+
+
+
+
+<body>
+
+<div class="top-bar">
+    <div class="scroll">
+        - NO SE ACEPTAN DEVOLUCIONES - &nbsp; - ENVIOS GRATIS A TODA ESPAÑA SUPERANDO LOS 50€ -
+        - NO SE ACEPTAN DEVOLUCIONES - &nbsp; - ENVIOS GRATIS A TODA ESPAÑA SUPERANDO LOS 50€ -
+    </div>
+</div>
+    <!-- Header principal -->
+<header>
+  <a href="" style="text-decoration: none; color: #000000;">
+        <h1 style="letter-spacing: -2px;">CXSHOP</h1></a>
+        <div>PARIS, FR<br> <div class="Reloj">17:24:00</div></div>
+</header>
+    <!-- Barra verde con menú -->
+<div class="green-bar">
+  <nav class="menu">
+    <!-- Botón hamburguesa -->
+    <div class="hamburger" id="hamburger">&#9776;</div>
+
+    <!-- Menú links -->
+<div class="menu-links" id="menu-links">
+  <button class="menu-close" id="menu-close" aria-label="Cerrar">✕</button>
+
+  <!-- TIENDA -->
+  <div class="submenu-container">
+    <a href="pages/shop.html" class="link-principal">TIENDA</a>
+    <div class="submenu" style="margin-left: -18px;">
+      <div class="submenu-columns">
+        <div class="submenu-column">
+          <h4>SHOP ALL</h4>
+          <a href="#">Nuevo</a>
+          <a href="#">Rebajas</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Hombre</h4>
+          <a href="#">Pantalones</a>
+          <a href="#">Upperwear</a>
+          <a href="#">Conjuntos</a>
+          <a href="#">Zapatillas</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Mujer</h4>
+          <a href="#">Pantalones</a>
+          <a href="#">Upperwear</a>
+          <a href="#">Conjuntos</a>
+          <a href="#">Zapatillas</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Accesorios</h4>
+          <a href="#">Gorros</a>
+          <a href="#">Bolsos</a>
+          <a href="#">Relojes</a>
+          <a href="#">Joyería</a>
+        </div>
+      </div>
+      <div class="submenu-images">
+        <a href="#"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/6a6c5ca3-050a-4dd9-9de1-3f6a301f26a6/M+NL+SOLO+SWSH+BB+OH+PANT.png" alt="Mens"></a>
+        <a href="#"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/ed1011b1-54a5-4f07-961c-1c1ec414d3dc/W+NK+TEMPO+DF+MR+3%22+SHORT.png" alt="Womens"></a>
+        <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/ae4a9f78-78be-459a-be67-cf0ea3efe1d0/image.jpg" alt="Sneakers"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLECCIONES -->
+  <div class="submenu-container">
+    <a href="pages/coleccion.html" class="link-principal">COLECCIONES</a>
+    <div class="submenu">
+      <div class="submenu-columns">
+        <div class="submenu-column">
+          <h4>Ediciones Limitadas</h4>
+          <a href="#">Premium</a>
+          <a href="#">Collabs</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Clásicos</h4>
+          <a href="#">Retro</a>
+          <a href="#">Heritage</a>
+        </div>
+      </div>
+      <div class="submenu-images">
+        <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/1.jpg" alt="Limited"></a>
+        <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/2.jpg" alt="Classic"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAS -->
+  <div class="submenu-container">
+    <a href="#" class="link-principal">MÁS</a>
+    <div class="submenu">
+      <div class="submenu-columns">
+        <div class="submenu-column">
+          <h4>Información</h4>
+          <a href="#">Sobre nosotros</a>
+          <a href="#">Sostenibilidad</a>
+          <a href="#">Blog</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Soporte</h4>
+          <a href="#">Contacto</a>
+          <a href="pages/Priv.html">Privacidad</a>
+          <a href="pages/Terminos.html">Términos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+  </nav>
+
+  <!-- parte derecha -->
+  <div class="right-info">
+    <div>BUSCAR</div>
+    <div class="cart" style="cursor: pointer;">CART<sup style="color: #e25500;">0</sup></div>
+  </div>
+</div>
+
+
+
+<!-- Carrito lateral -->
+<div id="cart-panel" class="cart-panel">
+  <div class="cart-header">
+    <h2>CARRITO</h2>
+    <button id="close-cart">✕</button>
+  </div>
+  <div id="cart-items" class="cart-items">
+    <p>Tu carrito está vacío</p>
+  </div>
+  <div class="cart-footer">
+    <span>Total: <strong id="cart-total">0 €</strong></span>
+    <button id="checkout-btn">Finalizar compra</button>
+  </div>
+</div>
+
+<!-- Overlay oscuro -->
+<div id="cart-overlay" class="cart-overlay"></div>
+
+
+
+
+
+
+
+
+
+
+  <!-- HERO -->  <!-- HERO -->  <!-- HERO -->  <!-- HERO -->  <!-- HERO -->
+
+<section class="hero">
+    <div class="hero-text">
+      <h1 style="letter-spacing: -20px;">CXSHOP</h1>
+      <p>URBAN STYLE</p>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="separator" style="border-bottom: 1px solid black;">
+  <p class="texto-separador" id="icono-separador">∎ LOS MAS VENDIDOS</p>
+  <a href="" class="texto-separador">COLECCIONES ↵ </a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- #region -->
+<div class="slider-container">
+  <button class="slider-btn prev">&#10094;</button>
+  <div class="slider" id="slider">
+    <!-- 8 productos (bloque original) -->
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/tjkr8ecmktw7qooy9d0h/NIKE+SHOX+TL.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/b7d9211c-26e7-431a-ac24-b0540fb3c00f/AIR+FORCE+1+%2707.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/dfdacd53-f40c-49e6-a72b-e0c0d3bdc42f/NIKE+AIR+MAX+PLUS.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b2549df0-1a59-4595-a776-ec1dd83dc1e3/JORDAN+MVP+92.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/6f9a935e-2103-43d9-8866-4bb9c8edf73f/AIR+MAX+PLUS.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/i1-e0d861d0-bee1-4902-9e61-361a3da4fc14/AIR+MAX+PLUS+III.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8397fa2b-f6b8-414f-b84b-c1f420f07f28/NIKE+CALM+SLIDE.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/7a2aec98-34b7-4a6e-85e4-9bec4bb5d963/AIR+MAX+TL+2.5.png"></div>
+    <!-- Clonamos los mismos 8 productos (bloque duplicado) -->
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/tjkr8ecmktw7qooy9d0h/NIKE+SHOX+TL.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/b7d9211c-26e7-431a-ac24-b0540fb3c00f/AIR+FORCE+1+%2707.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/dfdacd53-f40c-49e6-a72b-e0c0d3bdc42f/NIKE+AIR+MAX+PLUS.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b2549df0-1a59-4595-a776-ec1dd83dc1e3/JORDAN+MVP+92.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/6f9a935e-2103-43d9-8866-4bb9c8edf73f/AIR+MAX+PLUS.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/i1-e0d861d0-bee1-4902-9e61-361a3da4fc14/AIR+MAX+PLUS+III.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8397fa2b-f6b8-414f-b84b-c1f420f07f28/NIKE+CALM+SLIDE.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/7a2aec98-34b7-4a6e-85e4-9bec4bb5d963/AIR+MAX+TL+2.5.png"></div>
+  </div>
+  <button class="slider-btn next">&#10095;</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="separator" style="border-bottom: 1px solid black; border-top: 1px solid black;">
+      <p class="texto-separador">∎ COLECCION DE INVIERNO </p>
+      <p class="texto-separador">COLECCIONES</p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+<section class="seccion-links">
+  <h2 class="titulo-links" style="">BIENVENIDO <br><span>EXPLORA EL CATALOGO.<br></span></h2>
+  
+  <div class="links-container" style=" border-top: 1px solid black;margin-top: 10px;">
+    <!-- Imagen izquierda -->
+    <div class="link-box" style="margin-right: 1px solid black;"> <a href="">
+      <img src="https://www.nocta.com/cdn/shop/files/grey4.jpg?v=1753918713" alt="Mens">
+      <a href="#" class="btn-link womens">MENS</a> </a>
+    </div>
+
+    <!-- Imagen derecha -->
+    <div class="link-box"><a href="">
+      <img src="https://stussyhoods.es/wp-content/uploads/2025/08/usiness.jpg" alt="Womens">
+      <a href="#" class="btn-link womens">WOMENS</a></a>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="seccion-links" style="border-top: 1px solid black; margin-top: -20px; margin-bottom: 1 px solid black;">
+  <h2 class="titulo-links">EXPLORA <br><span >TODO LO QUE OFRECEMOS</span></h2>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- #region -->
+<div class="carousel-container">
+  <button class="carousel-btn prev">&#10094;</button>
+  <div class="carousel-track">
+    <!-- Productos -->
+    <div class="carousel-item">
+      <img src="./IMG/products/clothing/fecha-de-lanzamiento-de-la-colección-de-ropa-brazil-2004-total-90-reissue.jpg"> 
+      <div class="carousel-caption">
+        <h3 >FOOTBALL KITS</h3>
+        <button>Comprar</button>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://i.pinimg.com/474x/e3/44/b8/e344b82626b7cb4b49a8728655007b78.jpg">
+      <div class="carousel-caption">
+        <h3>MARCAS DE LUJO</h3>
+        <button>Comprar</button>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://25gramos.com/wp-content/uploads/2020/10/supreme-nike-air-max-plus-fw20-collab-release-info-001.jpg">
+      <div class="carousel-caption">
+        <h3>KICKS</h3>
+        <button>Comprar</button>
+      </div>
+    </div>
+    <div class="carousel-item">
+         <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/9a079cb9-2b41-4295-93de-f261f46bb944/M+NSW+TN+FB+JERSEY.png"> 
+      <div class="carousel-caption">
+        <h3>COLECCIONES</h3>
+        <button>Comprar</button>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="./IMG/image00023_1.webp">
+      <div class="carousel-caption">
+        <h3>EXCLUSIVOS</h3>
+        <button>Comprar</button>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/i1-e0d861d0-bee1-4902-9e61-361a3da4fc14/AIR+MAX+PLUS+III.png">
+      <div class="carousel-caption">
+        <h3>Producto Destacado 6</h3>
+        <button>Comprar</button>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8397fa2b-f6b8-414f-b84b-c1f420f07f28/NIKE+CALM+SLIDE.png">
+      <div class="carousel-caption">
+        <h3>Producto Destacado 7</h3>
+        <button>Comprar</button>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/7a2aec98-34b7-4a6e-85e4-9bec4bb5d963/AIR+MAX+TL+2.5.png">
+      <div class="carousel-caption">
+        <h3>Producto Destacado 8</h3>
+        <button>Comprar</button>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-btn next">&#10095;</button>
+</div>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="separator" style="border-bottom: 1px solid rgb(255, 255, 255);border-top: 1px solid black;">
+  <p class="texto-separador" id="icono-separador">∎ LOS MAS VENDIDOS</p>
+  <a href="" class="texto-separador">COLECCIONES ↵ </a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- BANNER -->
+<div id="consent-state" style="display:none"></div>
+<aside class="cookie-banner" role="region" aria-label="Aviso de cookies" id="cookieBanner" hidden>
+  <div class="cookie-banner__content">
+    <h3>Usamos cookies para mejorar tu experiencia</h3>
+    <p style="color: rgba(0, 0, 0, 0.61);">Usamos cookies necesarias, de preferencias y analítica. Puedes aceptar todas o configurar tus preferencias.</p>
+    <div style="margin-top:8px">
+      <a href="#" id="openCookieSettings" class="cookie-settings-link" style="color: black; font-weight: bold;">Configurar cookies</a>
+    </div>
+  </div>
+
+  <div class="cookie-banner__actions" role="group" aria-label="Acciones cookies">
+    <button class="btn btn-ghost" id="rejectAll" style="border: 1px solid black;">Rechazar todo</button>
+    <button class="btn btn-primary" id="acceptAll" style="border: 1px solid black;">Aceptar todo</button>
+  </div>
+</aside>
+<!-- MODAL -->
+<div class="cookie-modal-backdrop" id="cookieModal" aria-hidden="true">
+  <div class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookieModalTitle">
+    <h2 id="cookieModalTitle">Ajustes de cookies</h2>
+    <p class="small">Selecciona las categorías que permites. Las cookies necesarias siempre están activas.</p>
+
+    <!-- CATEGORIAS -->
+    <div class="cookie-category" data-key="necessary">
+      <div>
+        <strong>Necesarias</strong>
+        <p class="small">Imprescindibles para el funcionamiento de la tienda (carrito, seguridad).</p>
+      </div>
+      <div>
+        <div class="toggle on" data-key="necessary" aria-hidden="true"><div class="knob"></div></div>
+      </div>
+    </div>
+
+    <div class="cookie-category" data-key="preferences">
+      <div>
+        <strong>Preferencias</strong>
+        <p class="small">Guardan idioma, apariencia y ajustes menores.</p>
+      </div>
+      <div>
+        <div class="toggle" data-key="preferences" tabindex="0" role="switch" aria-checked="false"><div class="knob"></div></div>
+      </div>
+    </div>
+
+    <div class="cookie-category" data-key="analytics">
+      <div>
+        <strong>Analítica</strong>
+        <p class="small">Estadísticas para mejorar el sitio (Google Analytics u otros).</p>
+      </div>
+      <div>
+        <div class="toggle" data-key="analytics" tabindex="0" role="switch" aria-checked="false"><div class="knob"></div></div>
+      </div>
+    </div>
+
+    <div class="cookie-category" data-key="marketing">
+      <div>
+        <strong>Marketing</strong>
+        <p class="small">Publicidad personalizada y seguimiento en redes sociales.</p>
+      </div>
+      <div>
+        <div class="toggle" data-key="marketing" tabindex="0" role="switch" aria-checked="false"><div class="knob"></div></div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn " id="cancelSettings" style="padding:10px 14px;border:2px solid black;
+    background:transparent;color:var(--fg);font-weight:700;border-radius:8px;text-transform:uppercase;
+    cursor:pointer;">Cancelar</button>
+      <button class="btn " id="saveSettings" style="padding:10px 14px;border:2px solid black;
+    background:transparent;color:var(--fg);font-weight:700;border-radius:8px;text-transform:uppercase;
+    cursor:pointer;">Guardar</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="top-bar" >
+    <div class="scroll">
+        - NO SE ACEPTAN DEVOLUCIONES - &nbsp; - ENVIOS GRATIS A TODA ESPAÑA SUPERANDO LOS 50€ -
+        - NO SE ACEPTAN DEVOLUCIONES - &nbsp; - ENVIOS GRATIS A TODA ESPAÑA SUPERANDO LOS 50€ -
+    </div>
+</div>
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Bloque 1: Logo / Marca -->
+    <div class="footer-block">
+      <h2>CXSHOP</h2>
+      <p>Streetwear & Lifestyle</p>
+    </div>
+
+    <!-- Bloque 2: Links de navegación -->
+    <div class="footer-block">
+      <h3>TIENDA</h3>
+      <ul>
+        <li><a href="#">Aviso Legal</a></li>
+        <li><a href="pages/legal/Priv.html">Privacidad</a></li>
+        <li><a href="pages/legal/Terminos.html">Terminos</a></li>
+        <li><a href="#">Cookies</a></li>
+      </ul>
+    </div>
+
+    <!-- Bloque 3: Información -->
+    <div class="footer-block">
+      <h3>INFO</h3>
+      <ul>
+        <li><a href="pages/legal/Envios.html">Envíos</a></li>
+        <li><a href="pages/legal/Envios.html">Devoluciones</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+
+    <!-- Bloque 4: Redes -->
+    <div class="footer-block">
+      <h3>SÍGUENOS</h3>
+      <div class="socials">
+        <a href="#">IG</a>
+        <a href="#">TW</a>
+        <a href="#">YT</a>
+        <a href="#">TT</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Línea inferior -->
+  <div class="footer-bottom">
+    <p>© 2025 CXSHOP — Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+const symbols = ["∎", "⌗", "⌘", "∆", "∇", "☺", "☻", "◐", "◓", "◑", "◒"];
+  let currentIndex = 0;
+  const icono = document.getElementById("icono-separador");
+  function changeSymbol() {
+    currentIndex = (currentIndex + 1) % symbols.length;
+    icono.innerHTML = symbols[currentIndex] + " LOS MAS VENDIDOS";
+  }
+  setInterval(changeSymbol, 200);
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.querySelector(".carousel-track");
+  const items = document.querySelectorAll(".carousel-item");
+  const prevBtn = document.querySelector(".carousel-btn.prev");
+  const nextBtn = document.querySelector(".carousel-btn.next");
+
+  let index = 1; // empezamos en el primer clon
+  const intervalTime = 3000; // autoplay cada 3s
+  let autoPlay;
+
+  // Clonar primero y último para loop infinito
+  const firstClone = items[0].cloneNode(true);
+  const lastClone = items[items.length - 1].cloneNode(true);
+
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, items[0]);
+
+  const allItems = document.querySelectorAll(".carousel-item");
+  const itemWidth = allItems[0].getBoundingClientRect().width;
+
+  // Posicionar el track en el primer "real"
+  track.style.transform = `translateX(-${itemWidth * index}px)`;
+
+  function updateCarousel() {
+    track.style.transition = "transform 0.5s ease";
+    track.style.transform = `translateX(-${itemWidth * index}px)`;
+  }
+
+  function nextSlide() {
+    if (index >= allItems.length - 1) return;
+    index++;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    if (index <= 0) return;
+    index--;
+    updateCarousel();
+  }
+
+  // Ajuste al terminar transición (para loop infinito)
+  track.addEventListener("transitionend", () => {
+    if (allItems[index].isSameNode(firstClone)) {
+      track.style.transition = "none";
+      index = 1;
+      track.style.transform = `translateX(-${itemWidth * index}px)`;
+    }
+    if (allItems[index].isSameNode(lastClone)) {
+      track.style.transition = "none";
+      index = allItems.length - 2;
+      track.style.transform = `translateX(-${itemWidth * index}px)`;
+    }
+  });
+
+  // Botones
+  nextBtn.addEventListener("click", () => {
+    nextSlide();
+    resetAutoplay();
+  });
+
+  prevBtn.addEventListener("click", () => {
+    prevSlide();
+    resetAutoplay();
+  });
+
+  // Autoplay
+  function startAutoplay() {
+    autoPlay = setInterval(nextSlide, intervalTime);
+  }
+
+  function resetAutoplay() {
+    clearInterval(autoPlay);
+    startAutoplay();
+  }
+
+  // Iniciar autoplay
+  startAutoplay();
+
+  // Ajustar en resize (para recalcular itemWidth)
+  window.addEventListener("resize", () => {
+    const newWidth = allItems[0].getBoundingClientRect().width;
+    track.style.transition = "none";
+    track.style.transform = `translateX(-${newWidth * index}px)`;
+  });
+});
+</script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/shopify-buy@2.20.1/index.umd.min.js"></script>
+  <script src="/src/cart.js"></script>
+  <script src="/src/cookies.js"></script>
+  <script src="/src/script.js"></script>
+</body>
+</html>
+
+
+

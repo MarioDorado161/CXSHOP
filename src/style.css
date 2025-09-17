@@ -1,0 +1,700 @@
+ @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+    :root {
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    /* Para navegadores basados en WebKit (Chrome, Edge, Safari) */
+    ::-webkit-scrollbar {
+        width: 6px;           /* Grosor del scroll vertical */
+        height: 6px;          /* Grosor del scroll horizontal */
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;  /* Fondo del track */
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #000;   /* Color negro del scroll */
+        border-radius: 3px;       /* Bordes redondeados */
+        border: 1px solid transparent; /* Opcional: suaviza el borde */
+    }
+
+    /* Para Firefox */
+    * {
+        scrollbar-width: thin;        /* Scroll delgado */
+        scrollbar-color: #000 transparent; /* Color del scroll y del track */
+    }
+
+    /* Barra superior negra */
+/* 🔥 Barra negra arriba */
+/* Top bar negra */
+/* 🔥 Barra negra arriba */
+.top-bar {
+  background: black;
+  color: white;
+  font-size: 12px;
+  padding: 2px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;              
+  z-index: 300;        /* Por encima de todo */
+}
+
+.top-bar .scroll {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scroll-left 15s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Header principal */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 40px;
+}
+header h1 {
+  font-size: 44px;
+  margin: 0;
+  font-weight: bolder;
+  margin-left: -15px;
+}
+.Reloj { font-size: 20px; }
+
+/* 🔥 Barra verde sticky */
+.green-bar {
+  background: #A8FF60;
+  padding: 8px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  position: sticky;
+  top: var(--topbar-h, 24px);   /* altura dinámica */
+  z-index: 250;
+}
+
+/* Menú */
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+}
+
+/* Desktop (por defecto) */
+.menu-links {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Links */
+.menu a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  font-size: 20px;
+  position: relative;
+}
+.menu a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: black;
+  transition: width 0.3s ease;
+}
+.menu a:hover::after { width: 100%; }
+
+/* Submenú */
+.submenu-container { position: static; }
+
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;          
+  width: 100vw;      
+  background: white;
+  border-top: 3px solid #b8ff64;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  z-index: 100;
+  margin-top: 10px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-20px);
+  transition: all 0.4s ease;
+  border: 1px solid black;
+}
+
+.submenu-columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0px;
+  padding: 0px 20px;
+}
+
+.submenu-column h4 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.submenu-column a {
+  display: block;
+  text-decoration: none;
+  color: black;
+  margin: 5px 0;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.submenu-images {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: flex-start;
+  padding: 30px 50px;
+}
+.submenu-images img {
+  width: 180px;
+  height: 220px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* Hover para mostrar submenu */
+.submenu-container:hover .submenu {
+  max-height: 500px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Parte derecha */
+.right-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-weight: lighter;
+  font-size: 20px;
+}
+.cart sup { font-size: 12px; }
+
+/* Responsive */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* ======= MOBILE ======= */
+@media (max-width: 768px) {
+  /* Overlay de navegación */
+  .menu-links {
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    z-index: 1000;
+    overflow-y: auto;
+
+    /* 🔥 margen arriba para que no se corte la primera sección */
+    padding: 690px 20px 40px;
+
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+    box-sizing: border-box;
+
+  }
+
+  .menu-links.active { 
+    display: flex; 
+  }
+
+  /* Botón cerrar mejorado (solo en móvil) */
+  .menu-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 20px;
+    right: 10px;
+    font-size: 26px;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    /* 🔥 mejora área táctil */
+    padding: 10px;
+    width: 44px;
+    height: 44px;
+
+    z-index: 1101; /* por encima del overlay */
+  }
+
+  /* Cada bloque de menú ocupa ancho completo */
+  .submenu-container {
+    width: 100%;
+    max-width: 640px;
+  }
+
+  /* Submenús en columna (ya no flotan) */
+  .submenu {
+    position: static !important;
+    width: 100% !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 1 !important;
+    transform: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .submenu-columns {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .submenu-column {
+    border-bottom: 1px solid #000;
+
+  }
+
+  .submenu-column h4 {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .submenu-column a {
+    font-size: 20px;
+    margin: 4px 0;
+    display: block;
+    text-align: center;
+             border-top: 1px solid #000;
+  }
+
+  /* Quitamos imágenes en móvil */
+  .submenu-images { 
+    display: none !important; 
+  }
+
+  /* Hamburguesa visible */
+  .hamburger { 
+    display: block; 
+  }
+}
+
+/* ======= DESKTOP ======= */
+@media (min-width: 769px) {
+  .menu-close {
+    display: none !important; /* Oculto en escritorio */
+  }
+}
+
+
+/* === Overlay oscuro === */
+.cart-overlay {
+  display: none;                  /* 🔥 oculto por defecto */
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 900;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.cart-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+/* === Panel carrito === */
+.cart-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;                  /* 🔥 fuera de pantalla */
+  width: 400px;
+  max-width: 90vw;
+  height: 95vh;
+  background: #fff;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.3s ease;
+  padding: 20px;
+  visibility: hidden;             /* 🔥 invisible por defecto */
+}
+
+.cart-panel.open {
+  right: 0;
+  visibility: visible;            /* solo visible cuando se abre */
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.cart-header button {
+  font-size: 22px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 20px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+}
+
+.cart-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}
+
+.cart-item p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.cart-footer {
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-footer button {
+  background: black;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- FOOTER --- */
+.footer {
+  position: relative;
+  background: #000;
+  color: #fff;
+
+  overflow: hidden;
+}
+
+.footer::before {
+  content: "CXSHOP";
+  position: absolute;
+  top: 20px;
+  left: 5%;
+  font-size: 16rem; /* tamaño enorme */
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.075); /* efecto agua / watermark */
+  z-index: 0; /* detrás de todo */
+  pointer-events: none; /* no bloquea clics */
+  white-space: nowrap;
+    letter-spacing: -23px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding: 3rem 5%;
+  position: relative;
+  z-index: 1; /* por encima del fondo */
+    text-transform: uppercase;
+}
+
+.footer-block h2,
+.footer-block h3 {
+  font-weight: 00;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.footer-block h2 {
+  font-size: 4.4rem;
+  color: #A8FF60;
+  letter-spacing: -7px;
+}
+
+.footer-block ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+}
+
+.footer-block ul li {
+  margin: 0.5rem 0;
+}
+
+.footer-block ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 0.85rem;
+  transition: color 0.2s ease;
+  font-weight: bold;
+}
+
+.footer-block ul li a:hover {
+  color: #adff2f;
+}
+
+.socials {
+  display: flex;
+  gap: 1rem;
+}
+
+.socials a {
+  text-decoration: none;
+  font-weight: 700;
+  color: #fff;
+  transition: color 0.2s ease;
+}
+
+.socials a:hover {
+  color: #adff2f;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: #aaa;
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+  }
+
+  .socials {
+    justify-content: center;
+  }
+
+  .footer::before {
+    font-size: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 500px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+
+  .footer::before {
+    font-size: 3.5rem;
+  }
+}
+
+.ig-link {
+  font-weight: bold;
+  text-decoration: none;
+  background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  transition: opacity 0.3s ease;
+}
+
+.ig-link:hover {
+  opacity: 0.8;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* ====== RESET BÁSICO ====== */
+  .cookie-banner :root{
+    --bg:#ffffff;
+    --fg:#0b0b0b;
+    --accent:#000;
+    --muted:#666;
+    --panel-bg:#fff;
+    --glass: rgba(0,0,0,0.06);
+    --radius:10px;
+    --max-width:1100px;
+    font-family: Inter, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  }
+
+
+  /* ====== CONTENEDOR PRINCIPAL (ejemplo visual) ====== */
+  .page {
+    max-width:var(--max-width);
+    margin:32px auto;
+    padding:28px;
+    border:3px solid #000;
+    border-radius:12px;
+    background:linear-gradient(180deg, #fff, #fbfbfb);
+  }
+  .cookie-banner h1{font-size:28px;margin:0 0 8px;font-weight:800;letter-spacing:0.4px;text-transform:uppercase}
+  p.lead{margin:0 0 20px;color:var(--muted)}
+  /* ====== BANNER DE COOKIES ====== */
+.cookie-banner {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.85);
+  background: rgba(255, 255, 255, 0.603);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  max-width: calc(var(--max-width) - 64px);
+  margin: 0 auto;
+  font-size: 14px;
+  }
+  .cookie-banner__content{flex:1;min-width:0}
+  .cookie-banner h3{margin:0 0 6px;font-size:16px}
+  .cookie-banner p{margin:0;color:var(--muted);font-size:14px}
+  .cookie-banner__actions{display:flex;gap:10px;align-items:center}
+  .cookie-banner .btn {
+    display:inline-block;padding:10px 14px;border:2px solid var(--accent);
+    background:transparent;color:var(--fg);font-weight:700;border-radius:8px;text-transform:uppercase;
+    cursor:pointer;
+  }
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-ghost{background:transparent}
+  .cookie-banner .btn:focus{outline:2px solid rgba(0,0,0,0.12)}
+  /* ====== LINK AJUSTES ====== */
+  .cookie-settings-link {font-size:13px;color:var(--muted);cursor:pointer}
+  /* ====== MODAL DE AJUSTES ====== */
+  .cookie-modal-backdrop {
+    position: fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:10000;
+  }
+  .cookie-modal {
+    width:92%;max-width:720px;background:#fff;border-radius:12px;padding:22px;border:3px solid #000;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+  .cookie-modal h2{margin-top:0;font-size:18px}
+  .cookie-category{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px dashed #e6e6e6}
+  .cookie-category:first-of-type{border-top:none}
+  .cookie-category p{margin:0;font-size:14px;color:var(--muted)}
+  .toggle{
+    position:relative;width:52px;height:30px;border-radius:999px;background:#e6e6e6;border:1px solid #ddd;cursor:pointer;flex-shrink:0;
+  }
+  .toggle .knob{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.12);transition:all .18s}
+  .toggle.on{background:#000}
+  .toggle.on .knob{left:25px;background:#fff}
+  .cookie-modal .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+  .small{font-size:13px;color:var(--muted)}
+  /* ====== RESPONSIVE ====== */
+  @media (max-width:680px){
+    .cookie-banner{flex-direction:column;align-items:stretch;bottom:12px;padding:14px}
+    .cookie-banner__actions{justify-content:space-between}
+  .cookie-banner .btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  }
+/* Para desktop */
+@media (min-width: 681px) {
+  .cookie-banner {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;       /* alinea los items al margen inferior */
+    justify-content: space-between; /* mantiene el contenido a la izquierda */
+    gap: 20px;
+  }
+
+  .cookie-banner__actions {
+    margin-left: auto; /* empuja los botones al extremo derecho */
+  }
+
+
+}

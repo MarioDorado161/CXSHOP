@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CXSHOP</title>
+
+
+  <link rel="stylesheet" href="../../src/style.css">
+  
+  <style>
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*SEPARADOR CON TEXTOS*/
+
+
+
+
+.separator {
+          display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+}
+
+.separator h1 {
+   
+      margin: 0;
+      font-weight: bolder;
+      margin-left: -15px;
+}
+.texto-separador {
+          font-size: 20px;
+      margin: 0;
+      font-weight: light;
+      margin-left: -15px;
+      text-decoration: none;
+      color: black;
+}
+
+@media (max-width: 768px) {
+  .texto-separador{
+      font-size: 16px;
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .slider {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .product {
+    min-width: 25%; /* 4 por fila */
+    border-right: 1px solid black;
+    text-align: center;
+    background: white;
+  }
+
+  .product img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Botones */
+  .slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    font-size: 22px;
+    font-weight: 100;
+    color: rgba(255, 255, 255, 0.719);
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    padding: 0;
+  }
+
+  .prev { left: 10px; }
+  .next { right: 10px; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .product { min-width: 33.33%; }
+  }
+  @media (max-width: 768px) {
+    .product { min-width: 50%; }
+  }
+  @media (max-width: 480px) {
+    .product { min-width: 100%; }
+  }
+
+
+
+
+
+
+
+
+
+
+.seccion-links {
+  text-align: center;
+  background: #fff;
+  padding: 20px 0;
+}
+
+/* Título */
+.seccion-links .titulo-links {
+  font-size: 18px;
+  font-weight: normal;
+  margin-bottom: 15px;
+}
+
+.seccion-links .titulo-links span {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Contenedor imágenes */
+.links-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  height: 50vh; /* estilo original desktop */
+  margin: 0 auto;
+}
+
+/* Cada bloque */
+.link-box {
+  flex: 1;
+  position: relative;
+}
+
+.link-box img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0;
+  padding: 0;
+}
+
+/* Botones */
+.btn-link {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 20px;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.btn-link.mens {
+  background: white;
+  color: black;
+}
+
+.btn-link.womens {
+  background: rgb(0, 0, 0);
+  color: white;
+}
+
+/* Responsive tablet/móvil */
+@media (max-width: 1024px) {
+  .links-container {
+    flex-direction: column; /* apilar */
+    height: auto; /* ya no 80vh */
+  }
+
+  .link-box {
+    width: 100%;
+  }
+
+  .link-box img {
+    width: 100%;
+    height: auto;       /* que se adapte */
+    max-height: 400px;  /* límite para no desbordar */
+    object-fit: cover;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-item {
+  position: relative;
+  min-width: 25%;
+  border-right: 1px solid black;
+  text-align: center;
+  background: white;
+  height: 600px; /* altura de referencia del item */
+  overflow: hidden; /* evita que la imagen sobresalga */
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover; /* llena todo el item sin deformar */
+}
+/* Caption (texto + botón) */
+.carousel-caption {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: #fff;
+  text-align: left;
+
+  padding: 10px;
+  border-radius: 5px;
+
+}
+
+.carousel-caption h3 {
+  margin: 0 0 5px 0;
+  font-size: 26px;
+  text-transform: uppercase;
+}
+
+.carousel-caption button {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #ff4500;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Botones del carousel */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.274);
+  border: none;
+  font-size: 18px;
+  font-weight: 100;
+  color: rgba(255, 255, 255, 0.322);
+  cursor: pointer;
+  z-index: 2;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  padding: 0;
+}
+
+.carousel-btn.prev { left: 10px; }
+.carousel-btn.next { right: 10px; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .carousel-item { min-width: 33.33%; }
+}
+@media (max-width: 768px) {
+  .carousel-item { min-width: 50%; }
+}
+@media (max-width: 480px) {
+  .carousel-item { min-width: 100%; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.seccion-showcase {
+  padding: 0px 0px;
+  background: #fff;
+}
+
+.showcase-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.showcase-header h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.showcase-header p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* GRID */
+.showcase-grid {
+  display: grid;
+  grid-template-areas:
+    "grande grande mediano"
+    "grande grande mediano"
+    "pequeno pequeno mediano";
+
+  max-width: 1800px;
+  margin: 0 auto;
+  max-height: 100vh;
+  border-left: 1px solid black;
+   border-right: 1px solid black;
+    border-bottom: 1px solid black;
+  gap: 2px;
+  background-color: black;
+}
+
+.showcase-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.showcase-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+
+.showcase-item:hover img {
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.showcase-item:hover .overlay {
+  opacity: 1;
+}
+
+.overlay h3 {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.overlay button {
+  background: #000000;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  color: white;
+  transition: background .3s ease;
+}
+
+.overlay button:hover {
+  background: #A8FF60;
+  color: black;
+}
+
+/* Grid Areas */
+.grande {
+  grid-area: grande;
+  min-height: 500px;
+}
+.mediano {
+  grid-area: mediano;
+  min-height: 500px;
+}
+.pequeno {
+  min-height: 240px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .showcase-grid {
+    grid-template-areas:
+      "grande"
+      "mediano"
+      "pequeno"
+      "pequeno";
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .container-declaracion {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 40px;
+      border: 3px solid #000;
+      background: #fff;
+    }
+
+.container-declaracion h1,
+.container-declaracion h2,
+.container-declaracion h3 {
+  font-weight: 800;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #000;
+  padding-bottom: 8px;
+}
+
+    .container-declaracion p {
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .container-declaracion ul {
+      margin: 20px 0;
+      padding-left: 20px;
+    }
+
+    .container-declaracion li {
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border: 2px solid #000;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 700;
+      transition: 0.3s;
+      text-transform: uppercase;
+      margin-left: 20px;
+      background-color: #000;
+    }
+
+    .btn:hover {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .container-declaracion footer {
+      text-align: center;
+      font-size: 13px;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 2px solid #000;
+      color: #555;
+    }
+
+@media (max-width: 992px) {
+  .container-declaracion {
+    border: 0px;
+  }
+
+  .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* asegura centrado horizontal */
+    margin-top: 20px;
+  }
+}
+
+
+  </style>
+</head>
+
+
+
+
+
+
+
+
+
+<body>
+
+<div class="top-bar">
+    <div class="scroll">
+        - NO SE ACEPTAN DEVOLUCIONES - &nbsp; - ENVIOS GRATIS A TODA ESPAÑA SUPERANDO LOS 50€ -
+        - NO SE ACEPTAN DEVOLUCIONES - &nbsp; - ENVIOS GRATIS A TODA ESPAÑA SUPERANDO LOS 50€ -
+    </div>
+</div>
+    <!-- Header principal -->
+<header>
+  <a href="" style="text-decoration: none; color: #000000;">
+        <h1 style="letter-spacing: -2px;">CXSHOP</h1></a>
+        <div>PARIS, FR<br> <div class="Reloj">17:24:00</div></div>
+</header>
+    <!-- Barra verde con menú -->
+<div class="green-bar">
+  <nav class="menu">
+    <!-- Botón hamburguesa -->
+    <div class="hamburger" id="hamburger">&#9776;</div>
+
+    <!-- Menú links -->
+<div class="menu-links" id="menu-links">
+  <button class="menu-close" id="menu-close" aria-label="Cerrar">✕</button>
+
+  <!-- TIENDA -->
+  <div class="submenu-container">
+    <a href="/pages/shop.html" class="link-principal">TIENDA</a>
+    <div class="submenu" style="margin-left: -18px;">
+      <div class="submenu-columns">
+        <div class="submenu-column">
+          <h4>SHOP ALL</h4>
+          <a href="#">Nuevo</a>
+          <a href="#">Rebajas</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Hombre</h4>
+          <a href="#">Pantalones</a>
+          <a href="#">Upperwear</a>
+          <a href="#">Conjuntos</a>
+          <a href="#">Zapatillas</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Mujer</h4>
+          <a href="#">Pantalones</a>
+          <a href="#">Upperwear</a>
+          <a href="#">Conjuntos</a>
+          <a href="#">Zapatillas</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Accesorios</h4>
+          <a href="#">Gorros</a>
+          <a href="#">Bolsos</a>
+          <a href="#">Relojes</a>
+          <a href="#">Joyería</a>
+        </div>
+      </div>
+      <div class="submenu-images">
+        <a href="#"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/6a6c5ca3-050a-4dd9-9de1-3f6a301f26a6/M+NL+SOLO+SWSH+BB+OH+PANT.png" alt="Mens"></a>
+        <a href="#"><img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/ed1011b1-54a5-4f07-961c-1c1ec414d3dc/W+NK+TEMPO+DF+MR+3%22+SHORT.png" alt="Womens"></a>
+        <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/ae4a9f78-78be-459a-be67-cf0ea3efe1d0/image.jpg" alt="Sneakers"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLECCIONES -->
+  <div class="submenu-container">
+    <a href="#" class="link-principal">COLECCIONES</a>
+    <div class="submenu">
+      <div class="submenu-columns">
+        <div class="submenu-column">
+          <h4>Ediciones Limitadas</h4>
+          <a href="#">Premium</a>
+          <a href="#">Collabs</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Clásicos</h4>
+          <a href="#">Retro</a>
+          <a href="#">Heritage</a>
+        </div>
+      </div>
+      <div class="submenu-images">
+        <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/1.jpg" alt="Limited"></a>
+        <a href="#"><img src="https://static.nike.com/a/images/w_960,c_limit/2.jpg" alt="Classic"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAS -->
+  <div class="submenu-container">
+    <a href="#" class="link-principal">MÁS</a>
+    <div class="submenu">
+      <div class="submenu-columns">
+        <div class="submenu-column">
+          <h4>Información</h4>
+          <a href="#">Sobre nosotros</a>
+          <a href="#">Sostenibilidad</a>
+          <a href="#">Blog</a>
+        </div>
+        <div class="submenu-column">
+          <h4>Soporte</h4>
+          <a href="#">Contacto</a>
+          <a href="#">FAQ</a>
+          <a href="#">Términos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+  </nav>
+
+  <!-- parte derecha -->
+  <div class="right-info">
+    <div>BUSCAR</div>
+    <div class="cart" style="cursor: pointer;">CART<sup style="color: #e25500;">0</sup></div>
+  </div>
+</div>
+
+
+
+<!-- Carrito lateral -->
+<div id="cart-panel" class="cart-panel">
+  <div class="cart-header">
+    <h2>Carrito</h2>
+    <button id="close-cart">✕</button>
+  </div>
+  <div id="cart-items" class="cart-items">
+    <p>Tu carrito está vacío</p>
+  </div>
+  <div class="cart-footer">
+    <span>Total: <strong id="cart-total">0 €</strong></span>
+    <button id="checkout-btn">Finalizar compra</button>
+  </div>
+</div>
+
+<!-- Overlay oscuro -->
+<div id="cart-overlay" class="cart-overlay"></div>
+
+
+
+
+
+
+
+
+
+
+  <!-- HERO -->  <!-- HERO -->  <!-- HERO -->  <!-- HERO -->  <!-- HERO -->
+
+
+
+<section class="seccion-links" style="margin-top: -32px;">
+ 
+  
+  <div class="links-container" style=" border-top: 1px solid black;margin-top: 10px;">
+    <!-- Imagen izquierda -->
+    <div class="link-box" style="margin-right: 1px solid black;"> <a href="">
+      <img src="https://www.neo2.com/wp-content/uploads/2024/01/ropa-para-correr-en-invierno-de-the-north-face-02-650x867.jpg" alt="Mens">
+      <a href="#" class="btn-link womens">ENVIOS Y DEVOLUCIONES</a> </a>
+    </div>
+
+
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="container-declaracion">
+    <h1>Detalles de envio</h1>
+
+
+    <h2>1. Tiempos de Procesamiento</h2>
+    <p> Todos los pedidos se procesan dentro de 1 día hábil. Los pedidos no se envían ni se entregan 
+        los fines de semana ni los días festivos. Si experimentamos un gran volumen de pedidos, los 
+        envios pueden retrasarse unos días. Si habrá un retraso significativo en el envio de su pedido, 
+        nos pondremos en contacto con usted por correo electrónico o teléfono.
+
+</p>
+
+    <h2>2. Métodos de Envío y Costos</h2>
+        <p>
+            Envío en 21 dias laborables: GRATIS (Solo a la peninsula)
+        </p>
+
+
+
+
+    <h2>3. Áreas de Entrega</h2>
+        <h3 style="border: 0px;">3.1 Edad Mínima</h3>
+        <p>Realizamos envios a toda España (excepto Canarias) y Portugal.</p>
+     
+            
+         
+       
+
+
+
+
+    <h2>4. Confirmación de Envío y Seguimiento de Pedido</h2>
+        <p>Recibirá un SMS de confirmación de envio una vez que su pedido haya sido enviado, 
+            que contendrá su número de seguimiento. El número de seguimiento estará activo 
+            dentro de las 24 horas.</p>
+
+
+
+
+
+           </p>
+
+
+
+
+    <h2>5. Aduanas, Aranceles e Impuestos</h2>
+        <p>No aplican aduanas, aranceles ni impuestos adicionales para los envíos realizados por nuestra plataforma.</p>
+
+
+    <h2>6. Daños</h2>
+        <p>CXSHOP NO se hace responsable de los productos dañados o perdidos durante el envío. Si recibe su pedido dañado, 
+           comuniquese con el transportista para presentar una reclamación. Por favor, guarde todos los materiales de embalaje 
+           y los productos dañados antes de presentar una reclamación.</p>
+
+
+
+            
+
+    <h2>7. Política de Cambios</h2>
+        <p>Si desea realizar un cambio de producto o talla, siga las instrucciones detalladas en nuestra sección de Términos y 
+           Condiciones bajo «Politica de Cambios». Recuerde que el cliente es responsable de los gastos de envio asociados con 
+           el cambio (7.5€ para la recogida y 7.5€ para el envio del nuevo artículo)</p>
+
+
+
+
+
+    <footer>
+      © 2025 CXSHOP — Todos los derechos reservados.
+    </footer>
+  </div>
+
+
+
+
+
+
+
+
+
+
+<div class="separator" style="border-bottom: 1px solid black;">
+  <p class="texto-separador" id="icono-separador">∎ LOS MAS VENDIDOS</p>
+  <a href="" class="texto-separador">COLECCIONES ↵ </a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- #region -->
+<div class="slider-container">
+  <button class="slider-btn prev">&#10094;</button>
+  <div class="slider" id="slider">
+    <!-- 8 productos (bloque original) -->
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/tjkr8ecmktw7qooy9d0h/NIKE+SHOX+TL.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/b7d9211c-26e7-431a-ac24-b0540fb3c00f/AIR+FORCE+1+%2707.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/dfdacd53-f40c-49e6-a72b-e0c0d3bdc42f/NIKE+AIR+MAX+PLUS.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b2549df0-1a59-4595-a776-ec1dd83dc1e3/JORDAN+MVP+92.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/6f9a935e-2103-43d9-8866-4bb9c8edf73f/AIR+MAX+PLUS.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/i1-e0d861d0-bee1-4902-9e61-361a3da4fc14/AIR+MAX+PLUS+III.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8397fa2b-f6b8-414f-b84b-c1f420f07f28/NIKE+CALM+SLIDE.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/7a2aec98-34b7-4a6e-85e4-9bec4bb5d963/AIR+MAX+TL+2.5.png"></div>
+    <!-- Clonamos los mismos 8 productos (bloque duplicado) -->
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/tjkr8ecmktw7qooy9d0h/NIKE+SHOX+TL.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/b7d9211c-26e7-431a-ac24-b0540fb3c00f/AIR+FORCE+1+%2707.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/dfdacd53-f40c-49e6-a72b-e0c0d3bdc42f/NIKE+AIR+MAX+PLUS.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b2549df0-1a59-4595-a776-ec1dd83dc1e3/JORDAN+MVP+92.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/6f9a935e-2103-43d9-8866-4bb9c8edf73f/AIR+MAX+PLUS.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/i1-e0d861d0-bee1-4902-9e61-361a3da4fc14/AIR+MAX+PLUS+III.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/8397fa2b-f6b8-414f-b84b-c1f420f07f28/NIKE+CALM+SLIDE.png"></div>
+    <div class="product"><img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/7a2aec98-34b7-4a6e-85e4-9bec4bb5d963/AIR+MAX+TL+2.5.png"></div>
+  </div>
+  <button class="slider-btn next">&#10095;</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="top-bar" >
+    <div class="scroll">
+        - NO SE ACEPTAN DEVOLUCIONES - &nbsp; - ENVIOS GRATIS A TODA ESPAÑA SUPERANDO LOS 50€ -
+        - NO SE ACEPTAN DEVOLUCIONES - &nbsp; - ENVIOS GRATIS A TODA ESPAÑA SUPERANDO LOS 50€ -
+    </div>
+</div>
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Bloque 1: Logo / Marca -->
+    <div class="footer-block">
+      <h2>CXSHOP</h2>
+      <p>Streetwear & Lifestyle</p>
+    </div>
+
+    <!-- Bloque 2: Links de navegación -->
+    <div class="footer-block">
+      <h3>TIENDA</h3>
+      <ul>
+        <li><a href="#">Hombre</a></li>
+        <li><a href="#">Mujer</a></li>
+        <li><a href="#">Colecciones</a></li>
+        <li><a href="#">Ofertas</a></li>
+      </ul>
+    </div>
+
+    <!-- Bloque 3: Información -->
+    <div class="footer-block">
+      <h3>INFO</h3>
+      <ul>
+        <li><a href="#">Envíos</a></li>
+        <li><a href="#">Devoluciones</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+
+    <!-- Bloque 4: Redes -->
+    <div class="footer-block">
+      <h3>SÍGUENOS</h3>
+      <div class="socials">
+        <a href="#">IG</a>
+        <a href="#">TW</a>
+        <a href="#">YT</a>
+        <a href="#">TT</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Línea inferior -->
+  <div class="footer-bottom">
+    <p>© 2025 CXSHOP — Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+const slider = document.getElementById('slider');
+const products = slider.querySelectorAll('.product');
+const productWidth = products[0].offsetWidth; // ancho de un producto
+let index = 0;
+
+// Duplicamos los productos dinámicamente para el loop
+slider.innerHTML += slider.innerHTML;
+
+function moveSlider(direction = 1) {
+  index += direction;
+  slider.style.transition = 'transform 0.5s ease';
+  slider.style.transform = `translateX(${-index * productWidth}px)`;
+
+  // Si llegamos al final del primer bloque → reset al inicio
+  if (index >= products.length) {
+    setTimeout(() => {
+      slider.style.transition = 'none';
+      index = 0;
+      slider.style.transform = `translateX(0px)`;
+    }, 500);
+  }
+
+  // Si vamos demasiado hacia atrás → reset al final del primer bloque
+  if (index < 0) {
+    setTimeout(() => {
+      slider.style.transition = 'none';
+      index = products.length - 1;
+      slider.style.transform = `translateX(${-index * productWidth}px)`;
+    }, 500);
+  }
+}
+
+// Botones
+document.querySelector('.next').addEventListener('click', () => moveSlider(1));
+document.querySelector('.prev').addEventListener('click', () => moveSlider(-1));
+
+// Autoplay infinito
+setInterval(() => moveSlider(1), 3000);
+
+</script>
+
+<script>
+const symbols = ["∎", "⌗", "⌘", "∆", "∇", "☺", "☻", "◐", "◓", "◑", "◒"];
+  let currentIndex = 0;
+  const icono = document.getElementById("icono-separador");
+  function changeSymbol() {
+    currentIndex = (currentIndex + 1) % symbols.length;
+    icono.innerHTML = symbols[currentIndex] + " LOS MAS VENDIDOS";
+  }
+  setInterval(changeSymbol, 200);
+</script>
+
+<script>
+// 🔥 toggle del menú hamburguesa
+document.getElementById("hamburger").addEventListener("click", function() {
+  document.getElementById("menu-links").classList.toggle("active");
+});
+</script>
+
+
+<script>
+// 🔥 Ajusta automáticamente la altura de la top-bar
+function fixTopbarHeight() {
+  const tb = document.querySelector('.top-bar');
+  if (tb) {
+    document.documentElement.style.setProperty('--topbar-h', tb.offsetHeight + 'px');
+  }
+}
+window.addEventListener('load', fixTopbarHeight);
+window.addEventListener('resize', fixTopbarHeight);
+
+// 🔥 Toggle menú hamburguesa
+document.addEventListener("DOMContentLoaded", () => {
+  const burger = document.querySelector(".hamburger");
+  const menu = document.querySelector(".menu-links");
+  const closeBtn = document.querySelector(".menu-close");
+
+  if (burger && menu) {
+    burger.addEventListener("click", () => menu.classList.add("active"));
+  }
+  if (closeBtn && menu) {
+    closeBtn.addEventListener("click", () => menu.classList.remove("active"));
+  }
+});
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const burger = document.querySelector(".hamburger");
+  const menu = document.querySelector(".menu-links");
+  const closeBtn = document.querySelector(".menu-close");
+
+  if (burger && menu) {
+    burger.addEventListener("click", () => {
+      menu.classList.add("active");
+      document.body.style.overflow = "hidden"; // evita scroll del body
+    });
+  }
+
+  if (closeBtn && menu) {
+    closeBtn.addEventListener("click", () => {
+      menu.classList.remove("active");
+      document.body.style.overflow = ""; // reactiva scroll
+    });
+  }
+});
+
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/shopify-buy@2.20.1/index.umd.min.js"></script>
+<script>
+  // Shopify config
+  const client = ShopifyBuy.buildClient({
+    domain: 'TU_TIENDA.myshopify.com',
+    storefrontAccessToken: 'TU_ACCESS_TOKEN'
+  });
+
+  let checkoutId;
+  const cartBtn = document.querySelector('.cart');
+  const cartPanel = document.getElementById('cart-panel');
+  const cartOverlay = document.getElementById('cart-overlay');
+  const closeCartBtn = document.getElementById('close-cart');
+  const cartItemsContainer = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  const checkoutBtn = document.getElementById('checkout-btn');
+  const cartCount = document.querySelector('.cart sup');
+
+  // Inicializar checkout
+  async function initCheckout() {
+    const checkout = await client.checkout.create();
+    checkoutId = checkout.id;
+  }
+  initCheckout();
+
+  // Abrir carrito
+  cartBtn.addEventListener('click', () => {
+    cartPanel.classList.add('open');
+    cartOverlay.classList.add('active');
+  });
+
+  // Cerrar carrito
+  closeCartBtn.addEventListener('click', closeCart);
+  cartOverlay.addEventListener('click', closeCart);
+  function closeCart() {
+    cartPanel.classList.remove('open');
+    cartOverlay.classList.remove('active');
+  }
+
+  // Añadir producto al carrito (llámalo desde productpage.html)
+  async function addToCart(variantId, quantity = 1) {
+    const lineItemsToAdd = [{ variantId, quantity }];
+    const checkout = await client.checkout.addLineItems(checkoutId, lineItemsToAdd);
+    renderCart(checkout);
+  }
+
+  // Renderizar carrito
+  function renderCart(checkout) {
+    if (checkout.lineItems.length === 0) {
+      cartItemsContainer.innerHTML = "<p>Tu carrito está vacío</p>";
+      cartTotal.textContent = "0 €";
+      cartCount.textContent = "0";
+      return;
+    }
+    
+
+    cartItemsContainer.innerHTML = "";
+    checkout.lineItems.forEach(item => {
+      const itemHTML = `
+        <div class="cart-item">
+          <img src="${item.variant.image.src}" width="50">
+          <div>
+            <p>${item.title}</p>
+            <p>${item.variant.title} - ${item.quantity} x ${item.variant.price.amount} €</p>
+          </div>
+        </div>
+      `;
+      cartItemsContainer.innerHTML += itemHTML;
+    });
+
+    cartTotal.textContent = checkout.totalPrice.amount + " €";
+    cartCount.textContent = checkout.lineItems.length;
+  }
+
+  // Ir a checkout Shopify
+  checkoutBtn.addEventListener('click', async () => {
+    const checkout = await client.checkout.fetch(checkoutId);
+    window.location.href = checkout.webUrl;
+  });
+
+  // 🔥 Exponer función global para usarla en productpage.html
+  window.addToCart = addToCart;
+
+
+
+// === Abrir carrito ===
+cartBtn.addEventListener('click', () => {
+  cartPanel.classList.add('open');
+  cartOverlay.classList.add('active');
+});
+
+// === Cerrar carrito ===
+function closeCart() {
+  cartPanel.classList.remove('open');
+  cartOverlay.classList.remove('active');
+}
+
+closeCartBtn.addEventListener('click', closeCart);
+cartOverlay.addEventListener('click', closeCart);
+
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.querySelector(".carousel-track");
+  const items = document.querySelectorAll(".carousel-item");
+  const prevBtn = document.querySelector(".carousel-btn.prev");
+  const nextBtn = document.querySelector(".carousel-btn.next");
+
+  let index = 1; // empezamos en el primer clon
+  const intervalTime = 3000; // autoplay cada 3s
+  let autoPlay;
+
+  // Clonar primero y último para loop infinito
+  const firstClone = items[0].cloneNode(true);
+  const lastClone = items[items.length - 1].cloneNode(true);
+
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, items[0]);
+
+  const allItems = document.querySelectorAll(".carousel-item");
+  const itemWidth = allItems[0].getBoundingClientRect().width;
+
+  // Posicionar el track en el primer "real"
+  track.style.transform = `translateX(-${itemWidth * index}px)`;
+
+  function updateCarousel() {
+    track.style.transition = "transform 0.5s ease";
+    track.style.transform = `translateX(-${itemWidth * index}px)`;
+  }
+
+  function nextSlide() {
+    if (index >= allItems.length - 1) return;
+    index++;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    if (index <= 0) return;
+    index--;
+    updateCarousel();
+  }
+
+
+
+  // Botones
+  nextBtn.addEventListener("click", () => {
+    nextSlide();
+    resetAutoplay();
+  });
+
+  prevBtn.addEventListener("click", () => {
+    prevSlide();
+    resetAutoplay();
+  });
+
+  // Autoplay
+  function startAutoplay() {
+    autoPlay = setInterval(nextSlide, intervalTime);
+  }
+
+  function resetAutoplay() {
+    clearInterval(autoPlay);
+    startAutoplay();
+  }
+
+  // Iniciar autoplay
+  startAutoplay();
+
+  // Ajustar en resize (para recalcular itemWidth)
+  window.addEventListener("resize", () => {
+    const newWidth = allItems[0].getBoundingClientRect().width;
+    track.style.transition = "none";
+    track.style.transform = `translateX(-${newWidth * index}px)`;
+  });
+});
+</script>
+
+
+
+
+</body>
+</html>
+
+
+
