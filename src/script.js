@@ -1,9 +1,9 @@
-
+<script>
 document.addEventListener("DOMContentLoaded", function() {
   // Archivos que NO queremos tocar
-  const excludeFiles = ['2.jpg', 'cart.js', 'cookies.js', 'script.js'];
+  const excludeFiles = ['cart.js', 'cookies.js', '2.jpg', 'script.js'];
 
-  // Base del proyecto (para GitHub Pages o subcarpetas)
+  // Base del proyecto (raíz) para GitHub Pages o subcarpetas
   const basePath = (() => {
     const segments = location.pathname.split('/').filter(Boolean);
     if (location.hostname.includes('github.io') && segments.length > 0) {
@@ -24,26 +24,15 @@ document.addEventListener("DOMContentLoaded", function() {
     return new URL(path, window.location.origin + basePath).pathname;
   }
 
-  // Corregir enlaces
-  document.querySelectorAll('a[href]').forEach(a => {
-    a.href = fixPath(a.getAttribute('href'));
-  });
+  // Seleccionamos solo los enlaces dentro del menú
+  const menuLinks = document.querySelectorAll('.menu a[href]');
 
-  // Corregir imágenes
-  document.querySelectorAll('img[src]').forEach(img => {
-    img.src = fixPath(img.getAttribute('src'));
-  });
-
-  // Corregir CSS
-  document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+  menuLinks.forEach(link => {
     link.href = fixPath(link.getAttribute('href'));
   });
-
-  // Corregir scripts JS
-  document.querySelectorAll('script[src]').forEach(script => {
-    script.src = fixPath(script.getAttribute('src'));
-  });
 });
+</script>
+
 
 
 
@@ -175,6 +164,7 @@ setInterval(() => moveSlider(1), 3000);
 
 
 // CARRITO CARRITO CARRITO CARRITO
+
 
 
 
