@@ -1,8 +1,10 @@
 
 document.addEventListener("DOMContentLoaded", function() {
-  // Obtener la base del proyecto (raíz relativa)
+  // Archivos que NO queremos tocar
+  const excludeFiles = ['2.jpg', 'cart.js', 'cookies.js', 'script.js'];
+
+  // Base del proyecto (para GitHub Pages o subcarpetas)
   const basePath = (() => {
-    // Para GitHub Pages, el primer segmento suele ser el repositorio
     const segments = location.pathname.split('/').filter(Boolean);
     if (location.hostname.includes('github.io') && segments.length > 0) {
       return '/' + segments[0] + '/';
@@ -10,9 +12,15 @@ document.addEventListener("DOMContentLoaded", function() {
     return '/';
   })();
 
-  // Función para normalizar rutas desde la raíz del proyecto
+  // Función para normalizar rutas
   function fixPath(path) {
     if (!path || path.startsWith('http') || path.startsWith('#')) return path;
+
+    // Excluir archivos específicos
+    for (const file of excludeFiles) {
+      if (path.endsWith(file)) return path;
+    }
+
     return new URL(path, window.location.origin + basePath).pathname;
   }
 
@@ -167,6 +175,7 @@ setInterval(() => moveSlider(1), 3000);
 
 
 // CARRITO CARRITO CARRITO CARRITO
+
 
 
 
