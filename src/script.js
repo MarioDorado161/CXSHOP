@@ -1,37 +1,4 @@
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  // Archivos que NO queremos tocar
-  const excludeFiles = ['cart.js', 'cookies.js', '2.jpg', 'script.js'];
 
-  // Base del proyecto (raíz) para GitHub Pages o subcarpetas
-  const basePath = (() => {
-    const segments = location.pathname.split('/').filter(Boolean);
-    if (location.hostname.includes('github.io') && segments.length > 0) {
-      return '/' + segments[0] + '/';
-    }
-    return '/';
-  })();
-
-  // Función para normalizar rutas
-  function fixPath(path) {
-    if (!path || path.startsWith('http') || path.startsWith('#')) return path;
-
-    // Excluir archivos específicos
-    for (const file of excludeFiles) {
-      if (path.endsWith(file)) return path;
-    }
-
-    return new URL(path, window.location.origin + basePath).pathname;
-  }
-
-  // Seleccionamos solo los enlaces dentro del menú
-  const menuLinks = document.querySelectorAll('.menu a[href]');
-
-  menuLinks.forEach(link => {
-    link.href = fixPath(link.getAttribute('href'));
-  });
-});
-</script>
 
 
 
@@ -164,6 +131,7 @@ setInterval(() => moveSlider(1), 3000);
 
 
 // CARRITO CARRITO CARRITO CARRITO
+
 
 
 
